@@ -4,14 +4,22 @@
  *= require_self
 */
 
-h1 {
+.headline {
   font-size: 2em;
   text-align: center;
 }
 
-p {
-  color: #ffffff;
+.text {
   font-size: 4em;
+}
+
+.card__text {
+  font-size: 4em;
+  color: #ffffff;
+}
+
+.timer__text {
+  color: #51af66;
 }
 
 .board {
@@ -44,4 +52,8 @@ p {
 
 .card--red {
   background-color: #d14b3d;
+}
+
+.card--voted {
+  border: 5px solid #d14b3d;
 }

@@ -14,7 +14,7 @@ var GameUtil = {
       }
     });
   },
-
+  
   saveGame: function () {
     $.ajax({
       type: 'POST',
@@ -35,7 +35,7 @@ var GameUtil = {
     var newGame = new Game();
     newGame.startRound();
     this._createGame(newGame);
-    GameActions.receiveGame(newGame);
+    GameActions.startGame(newGame);
   },
 
   _createGame: function (newGame) {

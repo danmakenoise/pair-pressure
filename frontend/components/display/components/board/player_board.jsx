@@ -17,6 +17,7 @@ var PlayerBoard = React.createClass({
           key={index}
           card={card}
           onClick={this.props.onClick.bind(null, index)}
+          voted={this.props.voted === index}
         />
       );
     }.bind(this));

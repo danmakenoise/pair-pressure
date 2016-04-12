@@ -6,9 +6,15 @@ class Api::GamesController < ApplicationController
     render json: game.token
   end
 
+  def load
+    game = Game.find_by token: params[:token]
+
+    render json: { cards: game.cards, currentCard: game.current_card }
+  end
+
   private
 
   def game_params
-    params.require(:game).permit(:cards)
+    params.require(:game).permit(:cards, :current_card)
   end
 end

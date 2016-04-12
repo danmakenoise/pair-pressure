@@ -2,6 +2,18 @@ var Game = require('../game/game');
 var GameActions = require('../actions/game_actions');
 
 var GameUtil = {
+  loadGame: function (id) {
+    $.ajax({
+      type: 'GET',
+      url: 'api/games/' + id,
+      dataType: 'json',
+      success: function (data) {
+        var loadedGame = new Game(data.cards, data.currentCard);
+        GameActions.receiveGame(loadedGame);
+      }
+    });
+  },
+
   startNewGame: function () {
     var newGame = new Game();
     newGame.startRound();
@@ -15,7 +27,8 @@ var GameUtil = {
       url: 'api/save',
       dataType: 'text',
       data: { game: {
-        cards: this._stringifyCards(newGame.board.cards)
+        cards: this._stringifyCards(newGame.board.cards),
+        current_card: newGame.computerCardPos
       }},
       success: function (token) {
         GameActions.receiveToken(token);

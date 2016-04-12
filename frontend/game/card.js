@@ -1,7 +1,7 @@
-var Card = function (symbol, color) {
+var Card = function (symbol, color, flipped) {
   this.symbol = symbol;
   this.color = color;
-  this.flipped = false;
+  this.flipped = flipped;
 };
 
 Card.allCombinations = function () {
@@ -13,13 +13,34 @@ Card.allCombinations = function () {
   allSymbols.forEach( function (symbol) {
     allColors.forEach( function (color) {
       for (var i = 0; i < 2; i++ ) {
-        newCard = new Card(symbol, color);
+        newCard = new Card(symbol, color, false);
         allCards.push(newCard);
       }
     });
   });
 
   return Card._shuffle(allCards);
+};
+
+Card.combinationsFromString = function (string) {
+  var cards = string.split('\n'),
+      output = [],
+      newCard,
+      symbol,
+      color,
+      flipped;
+
+  cards.forEach(function(card){
+    card = card.split(',');
+    symbol = card[0];
+    color = card[1];
+    flipped = card[2] === 'false' ? false : true;
+
+    newCard = new Card(symbol, color, flipped);
+    output.push(newCard);
+  });
+
+  return output;
 };
 
 Card.prototype.isMatch = function (otherCard) {
@@ -35,9 +56,9 @@ Card.prototype.flip = function () {
 };
 
 Card._allSymbols = [
-  1,
-  2,
-  3,
+  '1',
+  '2',
+  '3',
 ];
 
 Card._allColors = [

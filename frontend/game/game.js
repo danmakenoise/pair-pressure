@@ -1,9 +1,19 @@
 var Board = require('./board');
 var Card = require('./card');
 
-var Game = function () {
-  var cards = Card.allCombinations();
-  this.board = new Board(cards);
+var Game = function (cardsString, currentCard) {
+  var cards;
+  
+  if (cardsString) {
+    cards = Card.combinationsFromString(cardsString);
+    this.board = new Board(cards);
+    this.computerCardPos = parseInt(currentCard);
+    this.computerCard = this.board.cardAt(this.computerCardPos);
+  } else {
+    cards = Card.allCombinations();
+    this.board = new Board(cards);
+  }
+
 };
 
 Game.prototype.chooseCard = function (idx) {

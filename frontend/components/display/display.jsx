@@ -5,16 +5,16 @@ var GameStore = require('../../stores/game_store');
 
 var Display = React.createClass({
   getInitialState: function () {
-    if (this.props.params.id) {
-      // Load game
-    } else {
-      return {game: null, guessing: false};
-    }
+    return {game: null, guessing: false};
   },
 
   componentDidMount: function () {
     this.listener = GameStore.addListener(this._handleChange);
-    GameUtil.startNewGame();
+    if (this.props.params.id) {
+      GameUtil.loadGame(this.props.params.id);
+    } else {
+      GameUtil.startNewGame();
+    }
   },
 
   componentWillUnmount: function () {

@@ -1,20 +1,27 @@
-$( function ( root ) {
+$(function () {
 
-root.PairPressure = root.PairPressure || {};
+window.PairPressure = window.PairPressure || {};
 
-var Board = root.PairPressure.Board = function ( boardSize, symbols ) {
-  if ( boardSize % 2 === 1 ) {
-    boardSize += 1;
-  }
-
-  this.grid = this._generateGrid( boardSize, symbols );
+var Board = window.PairPressure.Board = function () {
+  this.grid = this._generateGrid();
+  this._populateGrid();
 };
 
-Board.prototype._generateGrid = function ( boardSize, symbols ) {
-  for ( var i = 0; i < boardSize; i++ ) {
-    for ( var j = 0; j < boardSize; j++ ) {
-      outputGrid[i][j] = null;
-    }
+Board.prototype._generateGrid = function () {
+  var boardSize = 6,
+      outputGrid = new Array(boardSize),
+      outputRow;
+
+  for (var i = 0; i < boardSize; i++) {
+    outputRow = new Array(boardSize);
+    outputGrid[i] = outputRow;
   }
+
+  return outputGrid;
 };
-})( window );
+
+Board.prototype._populateGrid = function () {
+
+};
+
+});

@@ -13,6 +13,11 @@ GameStore.__onDispatch = function (payload) {
     GameStore.game = payload.game;
     this.__emitChange();
     break;
+  case GameConstants.RECEIVE_TOKEN:
+    GameStore.token = payload.token;
+    console.log(payload.token);
+    this.__emitChange();
+    break;
   default:
     // no-op
   }

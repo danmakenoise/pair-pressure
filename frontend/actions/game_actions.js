@@ -7,7 +7,14 @@ var GameActions = {
       actionType: GameConstants.RECEIVE_GAME,
       game: game
     });
-  }
+  },
+
+  receiveToken: function (token) {
+    GameDispatcher.dispatch({
+      actionType: GameConstants.RECEIVE_TOKEN,
+      token: token
+    });
+  },
 };
 
 module.exports = GameActions;

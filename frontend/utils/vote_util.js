@@ -25,8 +25,11 @@ var VoteUtil = {
       url: 'api/votes/' + GameStore.token,
       dataType: 'json',
       success: function (idx) {
-        debugger;
-        GameActions.flipCard(idx);
+        if (idx < 0) {
+          // end game early
+        } else {
+          GameActions.flipCard(idx);
+        }
       },
     });
   },

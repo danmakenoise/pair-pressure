@@ -16,7 +16,8 @@ class Api::VotesController < ApplicationController
       .order(count: :desc)
       .count
       .first
-    winning_card = winner[0]
+
+    winning_card = winner[0] if winner
 
     Vote.where(game_id: game.id).destroy_all
 

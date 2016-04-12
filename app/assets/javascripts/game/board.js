@@ -3,18 +3,22 @@ $(function () {
 window.PairPressure = window.PairPressure || {};
 
 var Board = window.PairPressure.Board = function (cards) {
+  this.size = 6;
   this.grid = this._generateGrid(cards);
 };
 
-Board.prototype._generateGrid = function (cards) {
-  var boardSize = 6,
-      outputGrid = new Array(boardSize);
+Board.prototype.cardAt = function (row, col) {
+  return this.grid[row][col];
+};
 
-  for (var i = 0; i < boardSize; i++) {
-    outputRow = cards.splice(0, boardSize);
+Board.prototype._generateGrid = function (cards) {
+  var outputGrid = new Array(this.size);
+
+  for (var i = 0; i < this.size; i++) {
+    outputRow = cards.splice(0, this.size);
+
     outputGrid[i] = outputRow;
   }
-
   return outputGrid;
 };
 

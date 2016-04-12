@@ -7,13 +7,13 @@ var Game = window.PairPressure.Game = function () {
   this.board = new window.PairPressure.Board(cards);
 };
 
-Game.prototype.chooseCard = function (row, col, callback) {
-  var chosenCard = this.board.cardAt(row, col);
+Game.prototype.chooseCard = function (idx, callback) {
+  var chosenCard = this.board.cardAt(idx);
 
   if (chosenCard.flipped) {
     throw 'InvalidCard';
   } else {
-    this.playerCardPos = [row, col];
+    this.playerCardPos = idx;
     this.playerCard = chosenCard;
     chosenCard.flip();
   }
@@ -41,18 +41,16 @@ Game.prototype.startRound = function () {
 Game.prototype._flipRandomCard = function () {
   var flipped = false,
       chosenCard,
-      row,
-      col;
+      idx;
 
   while (!flipped) {
-    row = Math.floor(Math.random() * this.board.size);
-    col = Math.floor(Math.random() * this.board.size);
-    chosenCard = this.board.cardAt(row, col);
+    idx = Math.floor(Math.random() * this.board.size);
+    chosenCard = this.board.cardAt(idx);
 
     if (!chosenCard.flipped) {
       flipped = true;
       this.computerCard = chosenCard;
-      this.computerCardPos = [row, col];
+      this.computerCardPos = idx;
     }
   }
 };

@@ -1,0 +1,10 @@
+body, main, section, header, h1, p {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  font-size: 100%;
+  background: inherit;
+  box-sizing: inherit;
+  vertical-align: baseline;
+}

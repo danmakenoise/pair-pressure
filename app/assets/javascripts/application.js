@@ -3,3 +3,4 @@
 //= require ./game/board
 //= require ./game/card
 //= require ./game/game
+//= require bundle

@@ -1,11 +1,17 @@
 var React = require('react');
 var Board = require('./components/board/board');
+var GameActions = require('../../actions/game_actions');
 var GameUtil = require('../../utils/game_util');
 var GameStore = require('../../stores/game_store');
 
 var Display = React.createClass({
   getInitialState: function () {
-    return {game: null, guessing: false};
+    if (this.props.params.id) {
+      GameActions.receiveToken(this.props.params.id);
+      return {game: null, guessing: false, spectator: false};
+    } else {
+      return {game: null, guessing: false, spectator: true};
+    }
   },
 
   componentDidMount: function () {
@@ -45,10 +51,11 @@ var Display = React.createClass({
   _handleGuess: function () {
     this.state.game.handleGuess();
     this.setState({guessing: false});
+    GameUtil.saveGame();
   },
 
   _makeGuess: function (idx) {
-    if (!this.state.guessing) {
+    if (!this.state.guessing && !this.state.spectator) {
       this.state.game.chooseCard(idx);
       this.setState({ guessing: true });
       window.setTimeout(this._handleGuess, 2000);

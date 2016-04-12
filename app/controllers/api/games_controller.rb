@@ -1,5 +1,10 @@
 class Api::GamesController < ApplicationController
   def save
+    if params[:game][:token]
+      game = Game.find_by token: params[:game][:token]
+      game.destroy
+    end
+
     game = Game.new game_params
     game.save
 
@@ -15,6 +20,6 @@ class Api::GamesController < ApplicationController
   private
 
   def game_params
-    params.require(:game).permit(:cards, :current_card)
+    params.require(:game).permit(:cards, :current_card, :token)
   end
 end

@@ -1,16 +1,25 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
+var ReactRouter = require('react-router');
+var Route = ReactRouter.Route;
+var Router = ReactRouter.Router;
+var hashHistory = ReactRouter.hashHistory;
+
 var Display = require('./components/display/display');
 var Game = require('./game/game');
 
+var routes = (
+  <Route>
+    <Route path='/' component={Display} />
+    <Route path='/game/:id' component={Display} />
+  </Route>
+);
+
 $( function() {
   var root = $('#pair-pressure')[0];
-  var PairPressure = window.PairPressure;
-  var game = new Game();
-  game.startRound();
 
   ReactDOM.render(
-    <Display game={game}/>,
+    <Router history={ hashHistory }>{routes}</Router>,
     root
   );
 });

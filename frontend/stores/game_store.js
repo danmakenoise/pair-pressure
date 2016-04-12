@@ -1,0 +1,21 @@
+var GameDispatcher = require('../dispatchers/game_dispatcher');
+var GameConstants = require('../constants/game_constants');
+
+var Store = require('flux/utils').Store;
+
+var GameStore = new Store(GameDispatcher);
+
+GameStore.game = null;
+
+GameStore.__onDispatch = function (payload) {
+  switch (payload.actionType) {
+  case GameConstants.RECEIVE_GAME:
+    GameStore.game = payload.game;
+    this.__emitChange();
+    break;
+  default:
+    // no-op
+  }
+};
+
+module.exports = GameStore;

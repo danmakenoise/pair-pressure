@@ -1,7 +1,7 @@
 var React = require('react');
 var Card = require('./components/card');
 
-var Board = React.createClass({
+var MainBoard = React.createClass({
   render: function () {
     return(
       <section className="section board group">
@@ -12,9 +12,9 @@ var Board = React.createClass({
 
   _renderCards: function () {
     return this.props.board.cards.map(function(card, index) {
-      return <Card key={index} card={card} onClick={this.props.onClick.bind(null, index)}/>;
+      return <Card key={index} card={card} />;
     }.bind(this));
   },
 });
 
-module.exports = Board;
+module.exports = MainBoard;

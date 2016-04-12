@@ -1,26 +1,18 @@
 var React = require('react');
-var Board = require('./components/board/board');
+var PlayerBoard = require('./components/board/player_board');
 var GameActions = require('../../actions/game_actions');
 var GameUtil = require('../../utils/game_util');
 var GameStore = require('../../stores/game_store');
 
-var Display = React.createClass({
+var PlayerDisplay = React.createClass({
   getInitialState: function () {
-    if (this.props.params.id) {
-      GameActions.receiveToken(this.props.params.id);
-      return {game: null, guessing: false, spectator: false};
-    } else {
-      return {game: null, guessing: false, spectator: true};
-    }
+    GameActions.receiveToken(this.props.params.id);
+    return {game: null, voting: false};
   },
 
   componentDidMount: function () {
     this.listener = GameStore.addListener(this._handleChange);
-    if (this.props.params.id) {
-      GameUtil.loadGame(this.props.params.id);
-    } else {
-      GameUtil.startNewGame();
-    }
+    GameUtil.loadGame(this.props.params.id);
   },
 
   componentWillUnmount: function () {
@@ -36,7 +28,7 @@ var Display = React.createClass({
               Pair Pressure
             </h1>
           </header>
-          <Board board={this.state.game.board} onClick={this._makeGuess}/>
+          <PlayerBoard board={this.state.game.board} onClick={this._castVote}/>
         </section>
       );
     } else {
@@ -48,14 +40,8 @@ var Display = React.createClass({
     this.setState({game: GameStore.game});
   },
 
-  _handleGuess: function () {
-    this.state.game.handleGuess();
-    this.setState({guessing: false});
-    GameUtil.saveGame();
-  },
-
-  _makeGuess: function (idx) {
-    if (!this.state.guessing && !this.state.spectator) {
+  _castVote: function (idx) {
+    if (!this.state.voting) {
       this.state.game.chooseCard(idx);
       this.setState({ guessing: true });
       window.setTimeout(this._handleGuess, 2000);
@@ -63,4 +49,4 @@ var Display = React.createClass({
   }
 });
 
-module.exports = Display;
+module.exports = PlayerDisplay;

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160412193153) do
+ActiveRecord::Schema.define(version: 20160412201848) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,5 +25,14 @@ ActiveRecord::Schema.define(version: 20160412193153) do
   end
 
   add_index "games", ["token"], name: "index_games_on_token", unique: true, using: :btree
+
+  create_table "votes", force: :cascade do |t|
+    t.integer  "game_id",    null: false
+    t.integer  "card",       null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "votes", ["game_id"], name: "index_votes_on_game_id", using: :btree
 
 end

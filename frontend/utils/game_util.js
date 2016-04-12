@@ -48,9 +48,8 @@ var GameUtil = {
         current_card: newGame.computerCardPos
       }},
       success: function (token) {
-        window.setInterval(this.loadGame.bind(null, token), 1000);
         GameActions.receiveToken(token);
-      }.bind(this),
+      },
     });
   },
 

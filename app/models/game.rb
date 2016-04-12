@@ -3,6 +3,7 @@ class Game < ActiveRecord::Base
   validates :cards, presence: true
 
   has_many :votes
+  has_many :players
   
   private
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160412223757) do
+ActiveRecord::Schema.define(version: 20160412224522) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 20160412223757) do
     t.integer  "card",       null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "player_id"
   end
 
   add_index "votes", ["game_id"], name: "index_votes_on_game_id", using: :btree

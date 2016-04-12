@@ -12,9 +12,9 @@ var Board = React.createClass({
 
   _renderCards: function () {
     return this.props.board.cards.map(function(card, index) {
-      return <Card key={index} card={card} />;
-    });
-  }
+      return <Card key={index} card={card} onClick={this.props.onClick.bind(null, index)}/>;
+    }.bind(this));
+  },
 });
 
 module.exports = Board;

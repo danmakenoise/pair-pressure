@@ -4,9 +4,14 @@
  *= require_self
 */
 
+h1 {
+  font-size: 2em;
+  text-align: center;
+}
+
 p {
-  color: white;
-  font-size: 48px;
+  color: #ffffff;
+  font-size: 4em;
 }
 
 .board {
@@ -18,18 +23,25 @@ p {
   box-sizing: border-box;
   width: 16.6666666%;
   padding: 50px 20px;
-  border: 5px solid white;
+  border: 5px solid #ffffff;
+  border-radius: 10px;
   float: left;
+  text-align: center;
+  cursor: pointer;
+}
+
+.card--down {
+  background-color: #51af66;
 }
 
 .card--yellow {
-  background-color: yellow;
+  background-color: #d1ba3d;
 }
 
 .card--blue {
-  background-color: blue;
+  background-color: #50348f;
 }
 
 .card--red {
-  background-color: red;
+  background-color: #d14b3d;
 }

@@ -1,13 +1,12 @@
-$(function () {
+var Board = require('./board');
+var Card = require('./card');
 
-window.PairPressure = window.PairPressure || {};
-
-var Game = window.PairPressure.Game = function () {
-  var cards = window.PairPressure.Card.allCombinations();
-  this.board = new window.PairPressure.Board(cards);
+var Game = function () {
+  var cards = Card.allCombinations();
+  this.board = new Board(cards);
 };
 
-Game.prototype.chooseCard = function (idx, callback) {
+Game.prototype.chooseCard = function (idx) {
   var chosenCard = this.board.cardAt(idx);
 
   if (chosenCard.flipped) {
@@ -17,16 +16,14 @@ Game.prototype.chooseCard = function (idx, callback) {
     this.playerCard = chosenCard;
     chosenCard.flip();
   }
-
-  callback && callback();
 };
 
-Game.prototype.handleGuess = function (callback) {
+Game.prototype.handleGuess = function () {
   if (!this.playerCard.isMatch(this.computerCard)) {
+    this.computerCard.flip();
     this.playerCard.flip();
   }
     this.startRound();
-    callback && callback();
 };
 
 Game.prototype.startRound = function () {
@@ -48,6 +45,7 @@ Game.prototype._flipRandomCard = function () {
     chosenCard = this.board.cardAt(idx);
 
     if (!chosenCard.flipped) {
+      chosenCard.flip();
       flipped = true;
       this.computerCard = chosenCard;
       this.computerCardPos = idx;
@@ -55,4 +53,4 @@ Game.prototype._flipRandomCard = function () {
   }
 };
 
-});
+module.exports = Game;

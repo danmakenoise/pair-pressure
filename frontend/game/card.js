@@ -1,8 +1,4 @@
-$(function () {
-
-window.PairPressure = window.PairPressure || {};
-
-var Card = window.PairPressure.Card = function (symbol, color) {
+var Card = function (symbol, color) {
   this.symbol = symbol;
   this.color = color;
   this.flipped = false;
@@ -68,4 +64,4 @@ Card._shuffle = function (array) {
   return array;
 };
 
-});
+module.exports = Card;

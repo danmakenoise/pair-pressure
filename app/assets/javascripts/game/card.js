@@ -22,7 +22,7 @@ Card.allCombinations = function () {
     });
   });
 
-  return allCards;
+  return Card._shuffle(allCards);
 };
 
 Card._allSymbols = [
@@ -39,5 +39,23 @@ Card._allColors = [
   'blue',
   'yellow',
 ];
+
+Card._shuffle = function (array) {
+  var numShifts = 1000,
+      indexOne,
+      indexTwo,
+      temp;
+
+  for (var i = 0; i < numShifts; i++) {
+    indexOne = Math.floor(Math.random() * array.length);
+    indexTwo = Math.floor(Math.random() * array.length);
+
+    temp = array[indexOne];
+    array[indexOne] = array[indexTwo];
+    array[indexTwo] = temp;
+  }
+
+  return array;
+};
 
 });

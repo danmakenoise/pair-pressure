@@ -2,26 +2,20 @@ $(function () {
 
 window.PairPressure = window.PairPressure || {};
 
-var Board = window.PairPressure.Board = function () {
-  this.grid = this._generateGrid();
-  this._populateGrid();
+var Board = window.PairPressure.Board = function (cards) {
+  this.grid = this._generateGrid(cards);
 };
 
-Board.prototype._generateGrid = function () {
+Board.prototype._generateGrid = function (cards) {
   var boardSize = 6,
-      outputGrid = new Array(boardSize),
-      outputRow;
+      outputGrid = new Array(boardSize);
 
   for (var i = 0; i < boardSize; i++) {
-    outputRow = new Array(boardSize);
+    outputRow = cards.splice(0, boardSize);
     outputGrid[i] = outputRow;
   }
 
   return outputGrid;
-};
-
-Board.prototype._populateGrid = function () {
-
 };
 
 });

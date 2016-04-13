@@ -18,9 +18,10 @@ var Game = function (cardsString, currentCard) {
 
 Game.prototype.isOver = function () {
   var over = true;
-
+  
   this.board.cards.forEach(function(card){
     if (!card.flipped) {
+      console.log(card);
       over = false;
     }
   });

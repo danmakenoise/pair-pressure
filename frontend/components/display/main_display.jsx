@@ -15,7 +15,7 @@ var MainDisplay = React.createClass({
   componentDidMount: function () {
     this.listener = GameStore.addListener(this._handleGameChange);
     this.infoListener = InfoStore.addListener(this._handleInfoChange);
-    window.setTimeout(GameUtil.fetchGameInfo, 2000);
+    this.infoTimeout = window.setTimeout(this._fetchGameInfo, 1000);
     GameUtil.startNewGame();
   },
 
@@ -23,6 +23,7 @@ var MainDisplay = React.createClass({
     this.listener.remove();
     this.infoListener.remove();
     window.clearTimeout(this.votingTimeout);
+    window.clearTimeout(this.infoTimeout);
   },
 
   render: function () {
@@ -50,6 +51,13 @@ var MainDisplay = React.createClass({
     }
   },
 
+  _fetchGameInfo: function () {
+    if (this.state.game) {
+      GameUtil.fetchGameInfo();
+      this.infoTimeout = window.setTimeout(this._fetchGameInfo, 1000);
+    }
+  },
+
   _handleInfoChange: function () {
     this.setState({players: InfoStore.players, votes: InfoStore.votes});
   },
@@ -66,11 +74,12 @@ var MainDisplay = React.createClass({
   },
 
   _handleGuess: function () {
-    GameStore.game.handleGuess();
-    GameUtil.saveGame();
     if (GameStore.game.isOver()) {
+      GameUtil.saveGame();
       this.setState({game: null, message: 'You Won!'});
     } else {
+      GameStore.game.handleGuess();
+      GameUtil.saveGame();
       this._startVoting();
     }
   },
@@ -87,6 +96,11 @@ var MainDisplay = React.createClass({
 
   _gameOver: function () {
     this.setState({game: null, message: 'Game Over!'});
+    this.gameListener.remove();
+    this.voteListener.remove();
+    this.sessionListener.remove();
+    window.clearTimeout(this.sessionTimeout);
+    window.clearTimeout(this.infoTimeout);
   },
 
   _startVoting: function () {
@@ -94,13 +108,13 @@ var MainDisplay = React.createClass({
       this.setState({
         game: GameStore.game,
         turnPhase: 'voting',
-        timeRemaining: 60
+        timeRemaining: 5
       });
     } else {
       this.setState({
         game: GameStore.game,
         turnPhase: 'voting',
-        timeRemaining: 15
+        timeRemaining: 5
       });
     }
     window.setTimeout(this._updateVoteCycle, 1000);

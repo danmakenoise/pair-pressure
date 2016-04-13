@@ -114,13 +114,16 @@
 }
 
 .card--some {
-  opacity: .75;
+  background-color: #64b6b1;
+  opacity: .60;
 }
 
 .card--many {
-  opacity: .8;
+  background-color: #ce534d;
+  opacity: .60;
 }
 
 .card--most {
+  background-color: #ce534d;
   opacity: 1;
 }

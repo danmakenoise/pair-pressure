@@ -22,7 +22,6 @@ var GameUtil = {
       dataType: 'json',
       success: function (data) {
         GameActions.receiveGameInfo(data);
-        window.setTimeout(GameUtil.fetchGameInfo, 2000);
       }
     });
   },

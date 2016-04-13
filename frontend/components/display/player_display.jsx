@@ -27,6 +27,7 @@ var PlayerDisplay = React.createClass({
     this.gameListener.remove();
     this.voteListener.remove();
     this.sessionListener.remove();
+    window.clearTimeout(this.sessionTimeout);
   },
 
   componentWillReceiveProps: function (newProps) {
@@ -56,11 +57,20 @@ var PlayerDisplay = React.createClass({
   },
 
   _handleGameChange: function () {
-    this.setState({game: GameStore.game});
+    if (GameStore.game.isOver()) {
+      this.setState({game: null});
+      window.clearInterval(this.sessionTimeout);
+    } else {
+      this.setState({game: GameStore.game});
+    }
+  },
+
+  _fetchSession: function () {
+    SessionUtil.fetchSession();
   },
 
   _handleSessionChange: function () {
-    window.setTimeout(SessionUtil.fetchSession, 5000);
+    this.sessionTimeout = window.setTimeout(this._fetchSession, 1000);
 
     this.setState({session: SessionStore.session });
 

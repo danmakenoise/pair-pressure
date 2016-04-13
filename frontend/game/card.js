@@ -11,12 +11,13 @@ Card.allCombinations = function () {
       newCard;
 
   allSymbols.forEach( function (symbol) {
-    allColors.forEach( function (color) {
-      for (var i = 0; i < 2; i++ ) {
-        newCard = new Card(symbol, color, false);
-        allCards.push(newCard);
-      }
-    });
+    var colorIdx = Math.floor(Math.random() * allColors.length);
+    var color = allColors[colorIdx];
+
+    for (var i = 0; i < 2; i++ ) {
+      newCard = new Card(symbol, color, false);
+      allCards.push(newCard);
+    }
   });
 
   return Card._shuffle(allCards);
@@ -56,8 +57,12 @@ Card.prototype.flip = function () {
 };
 
 Card._allSymbols = [
+  'A',
+  'B',
+  'C',
   '$',
   '#',
+  '@'
 ];
 
 Card._allColors = [

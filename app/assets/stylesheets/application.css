@@ -51,6 +51,10 @@
   text-align: right;
 }
 
+.link--brown {
+  background-color: #46433a;
+}
+
 .text {
   font-size: 4em;
 }
@@ -131,4 +135,9 @@
   border: solid 5px #ffffff;
   background-color: #ce534d;
   opacity: 1;
+}
+
+.instructions__text {
+  margin: 20px;
+  font-size: 1em;
 }

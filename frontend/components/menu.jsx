@@ -23,6 +23,7 @@ var Menu = React.createClass({
         </input>
         {this._renderJoinButton()}
         <Link to='/game' className='link'>Start a New Game</Link>
+        <Link to='/help' className='link link--brown'>How To Play</Link>
       </main>
     );
   },

@@ -10,6 +10,7 @@ var Menu = require('./components/menu');
 var MainDisplay = require('./components/display/main_display');
 var PlayerDisplay = require('./components/display/player_display');
 var Game = require('./game/game');
+var Instructions = require('./components/instructions');
 
 var PairPressure = React.createClass({
   contextTypes: {
@@ -40,6 +41,7 @@ var routes = (
       <IndexRoute component={Menu} />
       <Route path='/game' component={MainDisplay} />
       <Route path='/game/:id' component={PlayerDisplay} />
+      <Route path='/help' component={Instructions} />
     </Route>
   </Route>
 );

@@ -5,13 +5,15 @@ var Route = ReactRouter.Route;
 var Router = ReactRouter.Router;
 var hashHistory = ReactRouter.hashHistory;
 
+var Menu = require('./components/menu');
 var MainDisplay = require('./components/display/main_display');
 var PlayerDisplay = require('./components/display/player_display');
 var Game = require('./game/game');
 
 var routes = (
   <Route>
-    <Route path='/' component={MainDisplay} />
+    <Route path='/' component={Menu} />
+    <Route path='/game' component={MainDisplay} />
     <Route path='/game/:id' component={PlayerDisplay} />
   </Route>
 );

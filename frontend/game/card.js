@@ -56,9 +56,8 @@ Card.prototype.flip = function () {
 };
 
 Card._allSymbols = [
-  '1',
-  '2',
-  '3',
+  '$',
+  '#',
 ];
 
 Card._allColors = [

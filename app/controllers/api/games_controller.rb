@@ -2,10 +2,11 @@ class Api::GamesController < ApplicationController
   def save
     if params[:game][:token]
       game = Game.find_by token: params[:game][:token]
-      game.destroy
+      game.update game_params
+    else
+      game = Game.new game_params
     end
-
-    game = Game.new game_params
+    
     game.save
 
     render json: game.token

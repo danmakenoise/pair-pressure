@@ -14,7 +14,7 @@ var Card = React.createClass({
           className={this._determineClassName()}
           onClick={this.props.onClick}
         >
-          <p className='text card__text'>*</p>
+          <p className='text card__text'>&nbsp;</p>
         </section>
       );
     }

@@ -18,7 +18,8 @@ var PlayerDisplay = React.createClass({
     this.gameListener = GameStore.addListener(this._handleGameChange);
     this.voteListener = VoteStore.addListener(this._handleVoteChange);
     this.sessionListener = SessionStore.addListener(this._handleSessionChange);
-    SessionUtil.startSession();
+
+    SessionUtil.fetchSession();
     GameUtil.loadGame(this.props.params.id);
   },
 
@@ -49,12 +50,32 @@ var PlayerDisplay = React.createClass({
         </section>
       );
     } else {
-      return <section></section>;
+      return (
+        <section className='section notice'>
+          <h1 className='headline'>
+            Game Not Found
+          </h1>
+        </section>
+      );
     }
   },
 
   _handleGameChange: function () {
     this.setState({game: GameStore.game});
+  },
+
+  _handleSessionChange: function () {
+    window.setTimeout(SessionUtil.fetchSession, 5000);
+
+    this.setState({session: SessionStore.session });
+
+    if (!SessionStore.session.votes) {
+      this.setState({voted: false});
+      VoteStore.voted = null;
+      GameUtil.loadGame(this.props.params.id);
+    } else {
+      this.setState({voted: SessionStore.session.votes.card});
+    }
   },
 
   _handleVoteChange: function () {

@@ -13,11 +13,13 @@ var MainDisplay = React.createClass({
 
   componentDidMount: function () {
     this.listener = GameStore.addListener(this._handleGameChange);
+
     GameUtil.startNewGame();
   },
 
   componentWillUnmount: function () {
     this.listener.remove();
+    this.voteInterval && window.clearInterval(this.voteInterval);
   },
 
   render: function () {
@@ -31,6 +33,7 @@ var MainDisplay = React.createClass({
           </header>
           <MainBoard board={this.state.game.board}/>
           <Timer timeRemaining={this.state.timeRemaining} />
+          <h1 className="headline">{GameStore.token}</h1>
         </section>
       );
     } else {
@@ -64,7 +67,7 @@ var MainDisplay = React.createClass({
   },
 
   _startVoting: function () {
-    this.setState({game: GameStore.game, turnPhase: 'voting', timeRemaining: 10});
+    this.setState({game: GameStore.game, turnPhase: 'voting', timeRemaining: 30});
     this.voteInterval = window.setInterval(this._updateVoteCycle, 1000);
   }
 });

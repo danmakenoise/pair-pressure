@@ -8,7 +8,7 @@ var Menu = React.createClass({
 
   render: function() {
     return(
-      <section className='section menu'>
+      <main className='main menu'>
         <Link to='/game' className='link'>New Game</Link>
         <input
           ref='roomCode'
@@ -16,7 +16,7 @@ var Menu = React.createClass({
         <button className='button' onClick={this._joinGame}>
           Join Game in Progress
         </button>
-      </section>
+      </main>
     );
   },
 

@@ -36,26 +36,21 @@ var PlayerDisplay = React.createClass({
   render: function () {
     if (this.state.game && this.state.session) {
       return (
-        <section className="section display">
-          <header className="header">
-            <h1 className="headline">
-              Pair Pressure
-            </h1>
-          </header>
+        <main className="main display">
           <PlayerBoard
             board={this.state.game.board}
             onClick={this._castVote}
             voted={this.state.voted}
           />
-        </section>
+        </main>
       );
     } else {
       return (
-        <section className='section notice'>
+        <main className='main notice'>
           <h1 className='headline'>
             Game Not Found
           </h1>
-        </section>
+        </main>
       );
     }
   },

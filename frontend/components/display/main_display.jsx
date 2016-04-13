@@ -27,12 +27,7 @@ var MainDisplay = React.createClass({
   render: function () {
     if (this.state.game) {
       return (
-        <section className="section display">
-          <header className="header">
-            <h1 className="headline">
-              Pair Pressure
-            </h1>
-          </header>
+        <main className="main display">
           <MainBoard
             board={this.state.game.board}
             players={this.state.players}
@@ -40,13 +35,13 @@ var MainDisplay = React.createClass({
           <Timer timeRemaining={this.state.timeRemaining} />
           <h1 className="headline">{GameStore.token}</h1>
           <h1 className='headline'>{this.state.players}</h1>
-        </section>
+        </main>
       );
     } else {
       return (
-        <section className='section'>
+        <main className='main'>
           <h1 className='headline'>{this.state.message}</h1>
-        </section>
+        </main>
       );
     }
   },

@@ -21,7 +21,7 @@ var Menu = React.createClass({
   },
 
   _joinGame: function () {
-    if(this.refs.roomCode.value.length === 3) {
+    if(this.refs.roomCode.value.length === 4) {
       var url = '/game/' + this.refs.roomCode.value;
       this.context.router.push(url);
     }

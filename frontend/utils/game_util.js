@@ -15,16 +15,17 @@ var GameUtil = {
     });
   },
 
-  // fetchGameInfo: function () {
-  //   $.ajax({
-  //     type: 'GET',
-  //     url: 'api/games/' + GameStore.token,
-  //     dataType: 'json',
-  //     success: function (data) {
-  //       GameActions.receiveGameInfo(data);
-  //     }
-  //   });
-  // },
+  fetchGameInfo: function () {
+    $.ajax({
+      type: 'GET',
+      url: 'api/games/' + GameStore.token,
+      dataType: 'json',
+      success: function (data) {
+        GameActions.receiveGameInfo(data);
+        window.setTimeout(GameUtil.fetchGameInfo, 2000);
+      }
+    });
+  },
 
   saveGame: function () {
     $.ajax({

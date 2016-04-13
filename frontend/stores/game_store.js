@@ -1,25 +1,12 @@
 var GameDispatcher = require('../dispatchers/game_dispatcher');
 var GameConstants = require('../constants/game_constants');
-var GameUtil = require('../utils/game_util');
 
 var Store = require('flux/utils').Store;
 
 var GameStore = new Store(GameDispatcher);
 
-GameStore.game = null;
-// GameStore.votes = null;
-// GameStore.players = 0;
-//
-// GameStore._updateInfo = function (info) {
-//   debugger;
-//   window.setTimeout(GameUtil.fetchGameInfo, 2000);
-// };
-
 GameStore.__onDispatch = function (payload) {
   switch (payload.actionType) {
-  // case GameConstants.RECEIVE_INFO:
-  //   GameStore._updateInfo(payload.info);
-  //   break;
   case GameConstants.CARD_FLIPPED:
     this.__emitChange();
     break;

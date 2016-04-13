@@ -3,22 +3,25 @@ var MainBoard = require('./components/board/main_board');
 var GameActions = require('../../actions/game_actions');
 var GameUtil = require('../../utils/game_util');
 var GameStore = require('../../stores/game_store');
+var InfoStore = require('../../stores/info_store');
 var VoteUtil = require('../../utils/vote_util');
 var Timer = require('./components/timer');
 
 var MainDisplay = React.createClass({
   getInitialState: function () {
-    return {game: null, turnPhase: 'ready', timeRemaining: null};
+    return {players: 0, game: null, turnPhase: 'ready', timeRemaining: null};
   },
 
   componentDidMount: function () {
     this.listener = GameStore.addListener(this._handleGameChange);
-    // window.setTimeout(GameUtil.fetchGameInfo, 2000);
+    this.infoListener = InfoStore.addListener(this._handleInfoChange);
+    window.setTimeout(GameUtil.fetchGameInfo, 2000);
     GameUtil.startNewGame();
   },
 
   componentWillUnmount: function () {
     this.listener.remove();
+    this.infoListener.remove();
   },
 
   render: function () {
@@ -33,6 +36,7 @@ var MainDisplay = React.createClass({
           <MainBoard board={this.state.game.board}/>
           <Timer timeRemaining={this.state.timeRemaining} />
           <h1 className="headline">{GameStore.token}</h1>
+          <h1 className='headline'>{this.state.players}</h1>
         </section>
       );
     } else {
@@ -42,6 +46,10 @@ var MainDisplay = React.createClass({
         </section>
       );
     }
+  },
+
+  _handleInfoChange: function () {
+    this.setState({players: InfoStore.players});
   },
 
   _handleGameChange: function () {

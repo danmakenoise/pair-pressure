@@ -11,7 +11,7 @@ var VoteUtil = require('../../utils/vote_util');
 var PlayerDisplay = React.createClass({
   getInitialState: function () {
     GameActions.receiveToken(this.props.params.id);
-    return {session: null, game: null, voted: false};
+    return {session: null, game: null, voted: true};
   },
 
   componentDidMount: function () {
@@ -69,7 +69,7 @@ var PlayerDisplay = React.createClass({
 
     this.setState({session: SessionStore.session });
 
-    if (!SessionStore.session.votes) {
+    if (!SessionStore.session.votes && SessionStore.session.votes !== 0) {
       this.setState({voted: false});
       VoteStore.voted = null;
       GameUtil.loadGame(this.props.params.id);
@@ -83,7 +83,8 @@ var PlayerDisplay = React.createClass({
   },
 
   _castVote: function (idx) {
-    if (!this.state.voted) {
+    console.log(this.state.voted);
+    if (!this.state.voted && this.state.voted !== 0) {
       this.setState({voted: true});
       VoteUtil.castVote(idx);
     }

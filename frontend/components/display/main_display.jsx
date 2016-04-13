@@ -13,13 +13,11 @@ var MainDisplay = React.createClass({
 
   componentDidMount: function () {
     this.listener = GameStore.addListener(this._handleGameChange);
-
     GameUtil.startNewGame();
   },
 
   componentWillUnmount: function () {
     this.listener.remove();
-    this.voteInterval && window.clearInterval(this.voteInterval);
   },
 
   render: function () {
@@ -59,16 +57,16 @@ var MainDisplay = React.createClass({
   _updateVoteCycle: function () {
     if (this.state.timeRemaining > 0) {
       this.setState({timeRemaining: this.state.timeRemaining - 1});
+      window.setTimeout(this._updateVoteCycle, 1000);
     } else {
       this.setState({turnPhase: 'revealing', timeRemaining: null});
-      window.clearInterval(this.voteInterval);
       VoteUtil.processVotes();
     }
   },
 
   _startVoting: function () {
     this.setState({game: GameStore.game, turnPhase: 'voting', timeRemaining: 30});
-    this.voteInterval = window.setInterval(this._updateVoteCycle, 1000);
+    window.setTimeout(this._updateVoteCycle, 1000);
   }
 });
 

@@ -9,7 +9,7 @@ var Timer = require('./components/timer');
 
 var MainDisplay = React.createClass({
   getInitialState: function () {
-    return {players: 0, game: null, turnPhase: 'ready', timeRemaining: null};
+    return {votes: {}, players: 0, game: null, turnPhase: 'ready', timeRemaining: null};
   },
 
   componentDidMount: function () {
@@ -33,7 +33,10 @@ var MainDisplay = React.createClass({
               Pair Pressure
             </h1>
           </header>
-          <MainBoard board={this.state.game.board}/>
+          <MainBoard
+            board={this.state.game.board}
+            players={this.state.players}
+            votes={this.state.votes}/>
           <Timer timeRemaining={this.state.timeRemaining} />
           <h1 className="headline">{GameStore.token}</h1>
           <h1 className='headline'>{this.state.players}</h1>
@@ -49,7 +52,7 @@ var MainDisplay = React.createClass({
   },
 
   _handleInfoChange: function () {
-    this.setState({players: InfoStore.players});
+    this.setState({players: InfoStore.players, votes: InfoStore.votes});
   },
 
   _handleGameChange: function () {

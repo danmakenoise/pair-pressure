@@ -5,11 +5,12 @@ var Store = require('flux/utils').Store;
 
 var InfoStore = new Store(GameDispatcher);
 
-InfoStore.votes = null;
+InfoStore.votes = {};
 InfoStore.players = 0;
 
 InfoStore._updateInfo = function (info) {
   this.players = info.players;
+  this.votes = info.votes;
   this.__emitChange();
 };
 

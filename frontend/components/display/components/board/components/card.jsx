@@ -22,7 +22,17 @@ var Card = React.createClass({
 
   _determineClassName: function () {
     var selected = this.props.voted ? ' card--voted' : '';
-    return 'section card card--down' + selected;
+    var votedFor = '';
+
+    if (this.props.votes > 0.75) {
+      votedFor = ' card--most';
+    } else if (this.props.votes > 0.50) {
+      votedFor = ' card--many';
+    } else if (this.props.votes > 0) {
+      votedFor = ' card--some';
+    }
+
+    return 'section card card--down' + selected + votedFor;
   }
 });
 

@@ -138,6 +138,7 @@
 }
 
 .instructions__text {
-  margin: 20px;
+  margin: 20px auto;
   font-size: 1em;
+  max-width: 400px;
 }

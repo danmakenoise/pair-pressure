@@ -16,7 +16,7 @@ var Instructions = React.createClass({
           <p className='text instructions__text'>
             Pair Pressure is a cooperative card-matching game! On a computer,
             click 'Start New Game' on the main page. Then, using a phone or
-            tablet, go to pair-pressure.herokuapp.com and put in the room code
+            tablet, go to pair.danphillips.io and put in the room code
             you see at the bottom of the screen!
           </p>
           <p className='text instructions__text'>

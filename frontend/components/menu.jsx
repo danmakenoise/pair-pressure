@@ -9,13 +9,13 @@ var Menu = React.createClass({
   render: function() {
     return(
       <main className='main menu'>
-        <Link to='/game' className='link'>New Game</Link>
         <input
           ref='roomCode'
-          type='text' className='input' placeholder='Room Code'></input>
+          type='text' className='input' placeholder='Enter Room Code'></input>
         <button className='button' onClick={this._joinGame}>
-          Join Game in Progress
+          Submit Room Code
         </button>
+        <Link to='/game' className='link'>Start a New Game</Link>
       </main>
     );
   },

@@ -1,10 +1,42 @@
-body, main, section, header, h1, p {
+body, main, a, input, button, section, header, h1, p {
   border: 0;
   padding: 0;
   margin: 0;
+  outline: 0;
+  cursor: inherit;
   font: inherit;
   font-size: 100%;
   background: inherit;
   box-sizing: inherit;
   vertical-align: baseline;
+  display: block;
+  color: inherit;
+}
+
+a {
+  text-decoration: none;
+}
+
+::-webkit-input-placeholder {
+  color: inherit;
+  text-decoration: inherit;
+  opacity: .7;
+}
+
+:-moz-placeholder {
+  color: inherit;
+  text-decoration: inherit;
+  opacity: .7;
+}
+
+::-moz-placeholder {
+  color: inherit;
+  text-decoration: inherit;
+  opacity: .7;
+}
+
+:-ms-input-placeholder {
+  color: inherit;
+  text-decoration: inherit;
+  opacity: .7;
 }

@@ -4,27 +4,65 @@
  *= require_self
 */
 
-.headline {
-  font-size: 2em;
+/* site-wide--------------------------------------------------------------------
+*/
+
+.body {
+  box-sizing: border-box;
+  background-color: #ded4b9;
+  font-family: 'Pontano Sans', sans-serif;
+  color: #46433a;
   text-align: center;
+}
+
+.headline {
+  font-family: 'Bevan', cursive;
+  font-size: 3em;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.input, .link, .button {
+  background-color: #64b6b1;
+  color: #ffffff;
+  font-size: 2em;
+  padding: 10px 20px;
+  width: 100%;
+}
+
+.button {
+  cursor: pointer;
+  text-align: left;
+  background-color: #46433a;
+  color: #ded4b9;
+}
+
+.link {
+  text-align: right;
 }
 
 .text {
   font-size: 4em;
 }
 
-.card__text {
-  font-size: 4em;
-  color: #ffffff;
+.input {
+  margin-top: 100px;
+  color: #ded4b9;
+  background-color: #ce534d;
+  text-align: left;
+  width: 100%;
 }
 
-.timer__text {
-  color: #51af66;
-}
+/* game-display-----------------------------------------------------------------
+*/
 
 .board {
   width: 80%;
   margin: auto;
+}
+
+.timer__text {
+  color: #51af66;
 }
 
 .card {
@@ -36,6 +74,11 @@
   float: left;
   text-align: center;
   cursor: pointer;
+}
+
+.card__text {
+  font-size: 4em;
+  color: #ffffff;
 }
 
 .card--down {

@@ -35,7 +35,11 @@ var MainDisplay = React.createClass({
         </section>
       );
     } else {
-      return <section></section>;
+      return (
+        <section className='section'>
+          <h1 className='headline'>{this.state.message}</h1>
+        </section>
+      );
     }
   },
 
@@ -51,7 +55,11 @@ var MainDisplay = React.createClass({
   _handleGuess: function () {
     GameStore.game.handleGuess();
     GameUtil.saveGame();
-    this._startVoting();
+    if (GameStore.game.isOver()) {
+      this.setState({game: null, message: 'You Won!'});
+    } else {
+      this._startVoting();
+    }
   },
 
   _updateVoteCycle: function () {
@@ -60,12 +68,16 @@ var MainDisplay = React.createClass({
       window.setTimeout(this._updateVoteCycle, 1000);
     } else {
       this.setState({turnPhase: 'revealing', timeRemaining: null});
-      VoteUtil.processVotes();
+      VoteUtil.processVotes(this._gameOver);
     }
   },
 
+  _gameOver: function () {
+    this.setState({game: null, message: 'Game Over!'});
+  },
+
   _startVoting: function () {
-    this.setState({game: GameStore.game, turnPhase: 'voting', timeRemaining: 30});
+    this.setState({game: GameStore.game, turnPhase: 'voting', timeRemaining: 10});
     window.setTimeout(this._updateVoteCycle, 1000);
   }
 });

@@ -6,7 +6,7 @@ class Api::GamesController < ApplicationController
     else
       game = Game.new game_params
     end
-    
+
     game.save
 
     render json: game.token
@@ -14,8 +14,10 @@ class Api::GamesController < ApplicationController
 
   def load
     game = Game.find_by token: params[:token]
-
-    render json: { cards: game.cards, currentCard: game.current_card }
+    render json: {
+      cards: game.cards,
+      currentCard: game.current_card,
+    }
   end
 
   private

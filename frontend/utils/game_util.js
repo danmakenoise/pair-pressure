@@ -14,7 +14,7 @@ var GameUtil = {
       }
     });
   },
-  
+
   saveGame: function () {
     $.ajax({
       type: 'POST',

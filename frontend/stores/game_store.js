@@ -13,6 +13,7 @@ GameStore.__onDispatch = function (payload) {
     this.__emitChange();
     break;
   case GameConstants.RECEIVE_GAME:
+    debugger;
     GameStore.game = payload.game;
     this.__emitChange();
     break;

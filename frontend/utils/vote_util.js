@@ -19,14 +19,15 @@ var VoteUtil = {
     });
   },
 
-  processVotes: function () {
+  processVotes: function (gameOverCallback) {
     $.ajax({
       type: 'GET',
       url: 'api/votes/' + GameStore.token,
       dataType: 'json',
       success: function (idx) {
+        debugger;
         if (idx < 0) {
-          // end game early
+          gameOverCallback();
         } else {
           GameActions.flipCard(idx);
         }

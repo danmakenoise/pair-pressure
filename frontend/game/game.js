@@ -3,7 +3,7 @@ var Card = require('./card');
 
 var Game = function (cardsString, currentCard) {
   var cards;
-  
+
   if (cardsString) {
     cards = Card.combinationsFromString(cardsString);
     this.board = new Board(cards);
@@ -14,6 +14,16 @@ var Game = function (cardsString, currentCard) {
     this.board = new Board(cards);
   }
 
+};
+
+Game.prototype.isOver = function () {
+  this.board.cards.forEach(function(card){
+    if (!card.flipped) {
+      return false;
+    }
+  });
+
+  return true;
 };
 
 Game.prototype.chooseCard = function (idx) {

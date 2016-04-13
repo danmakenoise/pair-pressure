@@ -108,7 +108,7 @@ var MainDisplay = React.createClass({
       this.setState({
         game: GameStore.game,
         turnPhase: 'voting',
-        timeRemaining: 5
+        timeRemaining: 20
       });
     } else {
       this.setState({

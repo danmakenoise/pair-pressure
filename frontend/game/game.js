@@ -17,13 +17,15 @@ var Game = function (cardsString, currentCard) {
 };
 
 Game.prototype.isOver = function () {
+  var over = true;
+
   this.board.cards.forEach(function(card){
     if (!card.flipped) {
-      return false;
+      over = false;
     }
   });
 
-  return true;
+  return over;
 };
 
 Game.prototype.chooseCard = function (idx) {

@@ -1,6 +1,6 @@
 var Game = require('../game/game');
-var GameActions = require('../actions/game_actions');
 var GameStore = require('../stores/game_store');
+var GameActions = require('../actions/game_actions');
 
 var GameUtil = {
   loadGame: function (id) {
@@ -14,6 +14,17 @@ var GameUtil = {
       }
     });
   },
+
+  // fetchGameInfo: function () {
+  //   $.ajax({
+  //     type: 'GET',
+  //     url: 'api/games/' + GameStore.token,
+  //     dataType: 'json',
+  //     success: function (data) {
+  //       GameActions.receiveGameInfo(data);
+  //     }
+  //   });
+  // },
 
   saveGame: function () {
     $.ajax({

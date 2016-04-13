@@ -13,6 +13,7 @@ var MainDisplay = React.createClass({
 
   componentDidMount: function () {
     this.listener = GameStore.addListener(this._handleGameChange);
+    // window.setTimeout(GameUtil.fetchGameInfo, 2000);
     GameUtil.startNewGame();
   },
 
@@ -77,7 +78,7 @@ var MainDisplay = React.createClass({
   },
 
   _startVoting: function () {
-    this.setState({game: GameStore.game, turnPhase: 'voting', timeRemaining: 10});
+    this.setState({game: GameStore.game, turnPhase: 'voting', timeRemaining: 20});
     window.setTimeout(this._updateVoteCycle, 1000);
   }
 });

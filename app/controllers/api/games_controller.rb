@@ -17,6 +17,13 @@ class Api::GamesController < ApplicationController
     render json: {
       cards: game.cards,
       currentCard: game.current_card,
+      votes: Vote
+        .where(game_id: game.id)
+        .group(:card)
+        .order(count: :desc)
+        .limit(3)
+        .count,
+      players: game.players.size
     }
   end
 

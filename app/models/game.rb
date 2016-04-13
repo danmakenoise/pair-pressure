@@ -9,7 +9,7 @@ class Game < ActiveRecord::Base
 
   def ensure_token
     unless self.token
-      self.token = SecureRandom.urlsafe_base64(2)
+      self.token = SecureRandom.hex(2)
     end
   end
 end

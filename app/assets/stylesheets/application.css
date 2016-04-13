@@ -58,6 +58,7 @@
 
 .board {
   width: 80%;
+  max-width: 600px;
   margin: auto;
 }
 
@@ -69,7 +70,7 @@
   box-sizing: border-box;
   width: 25%;
   padding: 30px 10px;
-  border: 5px solid #ffffff;
+  border: 5px solid #ded4b9;
   border-radius: 10px;
   float: left;
   text-align: center;
@@ -82,33 +83,34 @@
 }
 
 .card--down {
-  background-color: #51af66;
+  background-color: #ffffff;
+  opacity: .5;
 }
 
 .card--yellow {
-  background-color: #d1ba3d;
+  background-color: #46433a;
 }
 
 .card--blue {
-  background-color: #50348f;
+  background-color: #64b6b1;
 }
 
 .card--red {
-  background-color: #d14b3d;
+  background-color: #ce534d;
 }
 
 .card--voted {
-  border: 5px solid #d14b3d;
+  border: solid 5px #ce534d;
 }
 
 .card--some {
-  border: 5px solid yellow;
+  opacity: .75;
 }
 
 .card--many {
-  border: 5px solid orange;
+  opacity: .8;
 }
 
 .card--most {
-  border: 5px solid red;
+  opacity: 1;
 }

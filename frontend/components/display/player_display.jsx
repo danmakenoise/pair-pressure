@@ -42,6 +42,7 @@ var PlayerDisplay = React.createClass({
             board={this.state.game.board}
             onClick={this._castVote}
             voted={this.state.voted}
+            compChoice={this.state.game.computerCardPos}
           />
         </main>
       );

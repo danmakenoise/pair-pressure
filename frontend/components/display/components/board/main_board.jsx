@@ -19,6 +19,7 @@ var MainBoard = React.createClass({
           key={index}
           card={card}
           votes={votes / this.props.players}
+          chosen={this.props.compChoice === index}
         />
       );
     }.bind(this));

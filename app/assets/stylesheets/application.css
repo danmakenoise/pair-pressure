@@ -109,21 +109,26 @@
   background-color: #ce534d;
 }
 
+.card--chosen {
+  border: solid 5px #ffffff;
+}
+
 .card--voted {
   border: solid 5px #ce534d;
 }
 
 .card--some {
-  background-color: #64b6b1;
-  opacity: .60;
+  background-color: #ce534d;
+  opacity: .33;
 }
 
 .card--many {
   background-color: #ce534d;
-  opacity: .60;
+  opacity: .66;
 }
 
 .card--most {
+  border: solid 5px #ffffff;
   background-color: #ce534d;
   opacity: 1;
 }

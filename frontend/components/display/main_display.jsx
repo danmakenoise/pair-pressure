@@ -33,7 +33,9 @@ var MainDisplay = React.createClass({
           <MainBoard
             board={this.state.game.board}
             players={this.state.players}
-            votes={this.state.votes}/>
+            votes={this.state.votes}
+            compChoice={this.state.game.computerCardPos}
+          />
           <h2 className="subheader">
             Players: {this.state.players} - Room Code: {GameStore.token}
           </h2>
@@ -114,7 +116,7 @@ var MainDisplay = React.createClass({
       this.setState({
         game: GameStore.game,
         turnPhase: 'voting',
-        timeRemaining: 5
+        timeRemaining: 10
       });
     }
     window.setTimeout(this._updateVoteCycle, 1000);

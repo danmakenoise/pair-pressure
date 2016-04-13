@@ -4,14 +4,14 @@ var Card = React.createClass({
   render: function() {
     if (this.props.card.flipped) {
       return (
-        <section className={'section card card--' + this.props.card.color}>
+        <section className={this._determineRevealedCardClassName()}>
           <p className='text card__text'>{this.props.card.symbol}</p>
         </section>
       );
     } else {
       return (
         <section
-          className={this._determineClassName()}
+          className={this._determineHiddenCardClassName()}
           onClick={this.props.onClick}
         >
           <p className='text card__text'>&nbsp;</p>
@@ -20,8 +20,15 @@ var Card = React.createClass({
     }
   },
 
-  _determineClassName: function () {
+  _determineRevealedCardClassName: function () {
+    console.log(this.props.chosen);
+    var chosen = this.props.chosen ? ' card--chosen' : '';
+    return 'section card card--' + this.props.card.color + chosen;
+  },
+
+  _determineHiddenCardClassName: function () {
     var selected = this.props.voted ? ' card--voted' : '';
+
     var votedFor = '';
 
     if (this.props.votes > 0.75) {

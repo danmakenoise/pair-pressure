@@ -12,17 +12,25 @@ var PlayerDisplay = require('./components/display/player_display');
 var Game = require('./game/game');
 
 var PairPressure = React.createClass({
+  contextTypes: {
+    router: React.PropTypes.object.isRequired
+  },
+
   render: function () {
     return (
       <section className='section pair-pressure'>
           <header className="header">
-            <h1 className="headline">
+            <h1 onClick={this._goHome} className="headline headline--clickable">
               Pair Pressure
             </h1>
           </header>
           { this.props.children }
       </section>
     );
+  },
+
+  _goHome: function () {
+    this.context.router.push('/');
   }
 });
 

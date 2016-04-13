@@ -5,7 +5,7 @@ var Timer = React.createClass({
     return (
       <section className='section timer'>
         <p className='text timer__text'>
-          { this.props.timeRemaining || 'Starting Next Round' }
+          { this.props.display }
         </p>
       </section>
     );

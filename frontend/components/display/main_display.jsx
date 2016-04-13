@@ -9,7 +9,7 @@ var Timer = require('./components/timer');
 
 var MainDisplay = React.createClass({
   getInitialState: function () {
-    return {votes: {}, players: 0, game: null, turnPhase: 'ready', timeRemaining: null};
+    return {votes: {}, players: 0, game: null, turnPhase: 'joining', timeRemaining: null};
   },
 
   componentDidMount: function () {
@@ -22,6 +22,7 @@ var MainDisplay = React.createClass({
   componentWillUnmount: function () {
     this.listener.remove();
     this.infoListener.remove();
+    window.clearTimeout(this.votingTimeout);
   },
 
   render: function () {
@@ -32,9 +33,12 @@ var MainDisplay = React.createClass({
             board={this.state.game.board}
             players={this.state.players}
             votes={this.state.votes}/>
-          <Timer timeRemaining={this.state.timeRemaining} />
-          <h1 className="headline">{GameStore.token}</h1>
-          <h1 className='headline'>{this.state.players}</h1>
+          <h2 className="subheader">
+            Players: {this.state.players} - Room Code: {GameStore.token}
+          </h2>
+          <Timer
+            display={this.state.timeRemaining}
+          />
         </main>
       );
     } else {
@@ -51,11 +55,13 @@ var MainDisplay = React.createClass({
   },
 
   _handleGameChange: function () {
-    if (this.state.turnPhase === 'ready' ) {
+    if (this.state.turnPhase === 'joining' ) {
       this._startVoting();
     } else if (this.state.turnPhase === 'revealing' ) {
       this.setState({game: GameStore.game});
       window.setTimeout(this._handleGuess, 2000);
+    } else {
+      this.setState({game: GameStore.game});
     }
   },
 
@@ -72,7 +78,7 @@ var MainDisplay = React.createClass({
   _updateVoteCycle: function () {
     if (this.state.timeRemaining > 0) {
       this.setState({timeRemaining: this.state.timeRemaining - 1});
-      window.setTimeout(this._updateVoteCycle, 1000);
+      this.votingTimeout = window.setTimeout(this._updateVoteCycle, 1000);
     } else {
       this.setState({turnPhase: 'revealing', timeRemaining: null});
       VoteUtil.processVotes(this._gameOver);
@@ -84,7 +90,19 @@ var MainDisplay = React.createClass({
   },
 
   _startVoting: function () {
-    this.setState({game: GameStore.game, turnPhase: 'voting', timeRemaining: 20});
+    if (this.state.turnPhase === 'joining') {
+      this.setState({
+        game: GameStore.game,
+        turnPhase: 'voting',
+        timeRemaining: 60
+      });
+    } else {
+      this.setState({
+        game: GameStore.game,
+        turnPhase: 'voting',
+        timeRemaining: 15
+      });
+    }
     window.setTimeout(this._updateVoteCycle, 1000);
   }
 });

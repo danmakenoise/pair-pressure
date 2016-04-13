@@ -22,6 +22,16 @@
   margin-bottom: 20px;
 }
 
+.headline--clickable {
+  cursor: pointer;
+}
+
+.subheader {
+  font-family: 'Bevan', cursive;
+  font-size: 2em;
+  text-align: center;
+}
+
 .input, .link, .button {
   background-color: #64b6b1;
   color: #ffffff;

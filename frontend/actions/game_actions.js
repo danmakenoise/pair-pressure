@@ -18,6 +18,13 @@ var GameActions = {
     });
   },
 
+  receiveGameInfo: function (info) {
+    GameDispatcher.dispatch({
+      actionType: GameConstants.RECEIVE_INFO,
+      info: info
+    });
+  },
+
   receiveToken: function (token) {
     GameDispatcher.dispatch({
       actionType: GameConstants.RECEIVE_TOKEN,

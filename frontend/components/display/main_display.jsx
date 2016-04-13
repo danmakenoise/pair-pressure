@@ -3,21 +3,25 @@ var MainBoard = require('./components/board/main_board');
 var GameActions = require('../../actions/game_actions');
 var GameUtil = require('../../utils/game_util');
 var GameStore = require('../../stores/game_store');
+var InfoStore = require('../../stores/info_store');
 var VoteUtil = require('../../utils/vote_util');
 var Timer = require('./components/timer');
 
 var MainDisplay = React.createClass({
   getInitialState: function () {
-    return {game: null, turnPhase: 'ready', timeRemaining: null};
+    return {votes: {}, players: 0, game: null, turnPhase: 'ready', timeRemaining: null};
   },
 
   componentDidMount: function () {
     this.listener = GameStore.addListener(this._handleGameChange);
+    this.infoListener = InfoStore.addListener(this._handleInfoChange);
+    window.setTimeout(GameUtil.fetchGameInfo, 2000);
     GameUtil.startNewGame();
   },
 
   componentWillUnmount: function () {
     this.listener.remove();
+    this.infoListener.remove();
   },
 
   render: function () {
@@ -29,9 +33,13 @@ var MainDisplay = React.createClass({
               Pair Pressure
             </h1>
           </header>
-          <MainBoard board={this.state.game.board}/>
+          <MainBoard
+            board={this.state.game.board}
+            players={this.state.players}
+            votes={this.state.votes}/>
           <Timer timeRemaining={this.state.timeRemaining} />
           <h1 className="headline">{GameStore.token}</h1>
+          <h1 className='headline'>{this.state.players}</h1>
         </section>
       );
     } else {
@@ -41,6 +49,10 @@ var MainDisplay = React.createClass({
         </section>
       );
     }
+  },
+
+  _handleInfoChange: function () {
+    this.setState({players: InfoStore.players, votes: InfoStore.votes});
   },
 
   _handleGameChange: function () {
@@ -77,7 +89,7 @@ var MainDisplay = React.createClass({
   },
 
   _startVoting: function () {
-    this.setState({game: GameStore.game, turnPhase: 'voting', timeRemaining: 10});
+    this.setState({game: GameStore.game, turnPhase: 'voting', timeRemaining: 20});
     window.setTimeout(this._updateVoteCycle, 1000);
   }
 });

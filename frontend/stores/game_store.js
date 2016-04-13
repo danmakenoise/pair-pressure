@@ -5,15 +5,12 @@ var Store = require('flux/utils').Store;
 
 var GameStore = new Store(GameDispatcher);
 
-GameStore.game = null;
-
 GameStore.__onDispatch = function (payload) {
   switch (payload.actionType) {
   case GameConstants.CARD_FLIPPED:
     this.__emitChange();
     break;
   case GameConstants.RECEIVE_GAME:
-    debugger;
     GameStore.game = payload.game;
     this.__emitChange();
     break;

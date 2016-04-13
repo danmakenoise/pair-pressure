@@ -12,7 +12,15 @@ var MainBoard = React.createClass({
 
   _renderCards: function () {
     return this.props.board.cards.map(function(card, index) {
-      return <Card key={index} card={card} />;
+      var votes = this.props.votes[index] ? this.props.votes[index] : 0;
+
+      return (
+        <Card
+          key={index}
+          card={card}
+          votes={votes / this.props.players}
+        />
+      );
     }.bind(this));
   },
 });

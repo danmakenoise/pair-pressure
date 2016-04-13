@@ -25,6 +25,7 @@ The game uses a complex series of JavaScript Timeout's and AJAX requests to keep
  * Multiplayer ability.
  * Play on computer or mobile platforms.
  * Maintains game state on the back-end.
+ 
 ---
 ## Todo
  - [ ] Keep track of correct user guesses.

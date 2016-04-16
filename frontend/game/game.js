@@ -48,6 +48,10 @@ Game.prototype.handleGuess = function () {
     this.startRound();
 };
 
+Game.prototype.wasMatch = function () {
+  return (this.playerCard.isMatch(this.computerCard));
+};
+
 Game.prototype.startRound = function () {
   this.computerCardPos = null;
   this.computerCard = null;

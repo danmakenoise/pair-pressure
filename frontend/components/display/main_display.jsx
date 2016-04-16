@@ -39,6 +39,9 @@ var MainDisplay = React.createClass({
           <h2 className="subheader">
             Players: {this.state.players} - Room Code: {GameStore.token}
           </h2>
+          <h2 className="message-board">
+            {this.state.message}
+          </h2>
           <Timer
             display={this.state.timeRemaining}
           />
@@ -68,7 +71,8 @@ var MainDisplay = React.createClass({
     if (this.state.turnPhase === 'joining' ) {
       this._startVoting();
     } else if (this.state.turnPhase === 'revealing' ) {
-      this.setState({game: GameStore.game});
+      var message = GameStore.game.wasMatch() ? "It's a match!" : "Not a match!";
+      this.setState({game: GameStore.game, message: message, timeRemaining: '__'});
       window.setTimeout(this._handleGuess, 2000);
     } else {
       this.setState({game: GameStore.game});
@@ -110,13 +114,15 @@ var MainDisplay = React.createClass({
       this.setState({
         game: GameStore.game,
         turnPhase: 'voting',
-        timeRemaining: 20
+        timeRemaining: 20,
+        message: 'Join the game on your phone to vote!'
       });
     } else {
       this.setState({
         game: GameStore.game,
         turnPhase: 'voting',
-        timeRemaining: 10
+        timeRemaining: 10,
+        message: 'Vote for the matching card!'
       });
     }
     window.setTimeout(this._updateVoteCycle, 1000);

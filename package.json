@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rake-db-migrate/pair-pressure.git"
+    "url": "git+https://github.com/danmakenoise/pair-pressure.git"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

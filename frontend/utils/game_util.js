@@ -37,7 +37,6 @@ var GameUtil = {
         token: GameStore.token
       }},
       success: function () {
-        console.log('game saved');
       },
     });
   },

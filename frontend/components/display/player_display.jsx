@@ -89,7 +89,6 @@ var PlayerDisplay = React.createClass({
   },
 
   _castVote: function (idx) {
-    console.log(this.state.voted);
     if (!this.state.voted && this.state.voted !== 0) {
       this.setState({voted: true});
       VoteUtil.castVote(idx);

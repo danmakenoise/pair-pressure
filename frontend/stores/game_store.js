@@ -16,7 +16,6 @@ GameStore.__onDispatch = function (payload) {
     break;
   case GameConstants.RECEIVE_TOKEN:
     GameStore.token = payload.token;
-    console.log(payload.token);
     this.__emitChange();
     break;
   case GameConstants.START_GAME:

@@ -21,7 +21,6 @@ var Card = React.createClass({
   },
 
   _determineRevealedCardClassName: function () {
-    console.log(this.props.chosen);
     var chosen = this.props.chosen ? ' card--chosen' : '';
     return 'section card card--' + this.props.card.color + chosen;
   },

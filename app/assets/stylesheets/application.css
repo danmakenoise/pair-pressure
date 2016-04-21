@@ -26,6 +26,10 @@
   cursor: pointer;
 }
 
+.headline--clickable:hover {
+  color: #56534a;
+}
+
 .subheader {
   font-family: 'Bevan', cursive;
   font-size: 2em;
@@ -51,8 +55,20 @@
   text-align: right;
 }
 
+.link:hover {
+  background-color: #74c6c1;
+}
+
 .link--brown {
   background-color: #46433a;
+}
+
+.link--brown:hover {
+  background-color: #56534a;
+}
+
+.link--centered {
+  text-align: center;
 }
 
 .text {

@@ -1,45 +1,39 @@
 var React = require('react');
-var MainBoard = require('./components/board/main_board');
+var PlayerBoard = require('./components/board/player_board');
 var GameActions = require('../../actions/game_actions');
 var GameUtil = require('../../utils/game_util');
 var GameStore = require('../../stores/game_store');
 var InfoStore = require('../../stores/info_store');
 var VoteUtil = require('../../utils/vote_util');
-var Link = require('react-router').Link;
 var Timer = require('./components/timer');
+var Link = require('react-router').Link;
 
-var MainDisplay = React.createClass({
+var SoloDisplay = React.createClass({
   getInitialState: function () {
-    return {votes: {}, players: 0, game: null, turnPhase: 'joining', timeRemaining: null};
+    return {voted: true, game: null, turnPhase: 'joining', timeRemaining: null};
   },
 
   componentDidMount: function () {
-    this.gameListener = GameStore.addListener(this._handleGameChange);
-    this.infoListener = InfoStore.addListener(this._handleInfoChange);
-    this.infoTimeout = window.setTimeout(this._fetchGameInfo, 1000);
+    this.listener = GameStore.addListener(this._handleGameChange);
     GameUtil.startNewGame();
   },
 
   componentWillUnmount: function () {
-    this.gameListener.remove();
-    this.infoListener.remove();
     window.clearTimeout(this.votingTimeout);
-    window.clearTimeout(this.infoTimeout);
+    window.clearTimeout(this.guessTimeout);
+    this.listener.remove();
   },
 
   render: function () {
     if (this.state.game) {
       return (
         <main className="main display">
-          <MainBoard
+          <PlayerBoard
             board={this.state.game.board}
-            players={this.state.players}
-            votes={this.state.votes}
+            voted={this.state.voted}
+            onClick={this._castVote}
             compChoice={this.state.game.computerCardPos}
           />
-          <h2 className="subheader">
-            Players: {this.state.players} - Room Code: {GameStore.token}
-          </h2>
           <h2 className="message-board">
             {this.state.message}
           </h2>
@@ -58,24 +52,13 @@ var MainDisplay = React.createClass({
     }
   },
 
-  _fetchGameInfo: function () {
-    if (this.state.game) {
-      GameUtil.fetchGameInfo();
-      this.infoTimeout = window.setTimeout(this._fetchGameInfo, 1000);
-    }
-  },
-
-  _handleInfoChange: function () {
-    this.setState({players: InfoStore.players, votes: InfoStore.votes});
-  },
-
   _handleGameChange: function () {
     if (this.state.turnPhase === 'joining' ) {
       this._startVoting();
     } else if (this.state.turnPhase === 'revealing' ) {
       var message = GameStore.game.wasMatch() ? "It's a match!" : "Not a match!";
       this.setState({game: GameStore.game, message: message, timeRemaining: '__'});
-      window.setTimeout(this._handleGuess, 2000);
+      this.guessTimeout = window.setTimeout(this._handleGuess, 2000);
     } else {
       this.setState({game: GameStore.game});
     }
@@ -83,52 +66,49 @@ var MainDisplay = React.createClass({
 
   _handleGuess: function () {
     if (GameStore.game.isOver()) {
-      GameUtil.saveGame();
       this.setState({game: null, message: 'You Won!'});
     } else {
       GameStore.game.handleGuess();
-      GameUtil.saveGame();
       this._startVoting();
     }
   },
 
+  _castVote: function (idx) {
+    if (!this.state.voted && this.state.voted !== 0) {
+      this.setState({voted: idx});
+    }
+  },
+
   _updateVoteCycle: function () {
-    if (this.state.timeRemaining > 0) {
+    if (!this.state.voted && this.state.voted !== 0 && this.state.timeRemaining > 0) {
       this.setState({timeRemaining: this.state.timeRemaining - 1});
       this.votingTimeout = window.setTimeout(this._updateVoteCycle, 1000);
     } else {
-      this.setState({turnPhase: 'revealing', timeRemaining: null});
-      VoteUtil.processVotes(this._gameOver);
+      if (!this.state.voted && this.state.voted !== 0) {
+        this._gameOver();
+      } else {
+        var cardToFlip = this.state.voted;
+        this.setState({voted: false, turnPhase: 'revealing', timeRemaining: null});
+        GameActions.flipCard(cardToFlip);
+      }
     }
   },
 
   _gameOver: function () {
     this.setState({game: null, message: 'Game Over!'});
-    this.gameListener.remove();
-    this.voteListener.remove();
-    this.sessionListener.remove();
-    window.clearTimeout(this.sessionTimeout);
-    window.clearTimeout(this.infoTimeout);
+    this.listener.remove();
   },
 
   _startVoting: function () {
-    if (this.state.turnPhase === 'joining') {
-      this.setState({
-        game: GameStore.game,
-        turnPhase: 'voting',
-        timeRemaining: 20,
-        message: 'Join the game on your phone to vote!'
-      });
-    } else {
-      this.setState({
-        game: GameStore.game,
-        turnPhase: 'voting',
-        timeRemaining: 10,
-        message: 'Vote for the matching card!'
-      });
-    }
-    window.setTimeout(this._updateVoteCycle, 1000);
+    this.setState({
+      voted: false,
+      game: GameStore.game,
+      turnPhase: 'voting',
+      timeRemaining: 10,
+      message: 'Guess the matching card!'
+    });
+    this.votingTimeout = window.setTimeout(this._updateVoteCycle, 1000);
   }
 });
 
-module.exports = MainDisplay;
+module.exports = SoloDisplay;

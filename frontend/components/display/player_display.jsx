@@ -7,6 +7,7 @@ var SessionStore = require('../../stores/session_store');
 var SessionUtil = require('../../utils/session_util');
 var VoteStore = require('../../stores/vote_store');
 var VoteUtil = require('../../utils/vote_util');
+var Link = require('react-router').Link;
 
 var PlayerDisplay = React.createClass({
   getInitialState: function () {
@@ -50,8 +51,9 @@ var PlayerDisplay = React.createClass({
       return (
         <main className='main notice'>
           <h1 className='headline'>
-            Game Not Found
+            This Game Has Ended
           </h1>
+          <Link to='/' className='link link--centered'>Main Menu</Link>
         </main>
       );
     }

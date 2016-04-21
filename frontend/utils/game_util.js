@@ -48,6 +48,12 @@ var GameUtil = {
     GameActions.startGame(newGame);
   },
 
+  startSoloGame: function () {
+    var newGame = new Game();
+    newGame.startRound();
+    GameActions.startGame(newGame);
+  },
+  
   _createGame: function (newGame) {
     $.ajax({
       type: 'POST',

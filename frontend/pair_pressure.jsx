@@ -9,6 +9,7 @@ var IndexRoute = ReactRouter.IndexRoute;
 var Menu = require('./components/menu');
 var MainDisplay = require('./components/display/main_display');
 var PlayerDisplay = require('./components/display/player_display');
+var SoloDisplay = require('./components/display/solo_display');
 var Game = require('./game/game');
 var Instructions = require('./components/instructions');
 
@@ -40,6 +41,7 @@ var routes = (
     <Route path='/' component={PairPressure}>
       <IndexRoute component={Menu} />
       <Route path='/game' component={MainDisplay} />
+      <Route path='/solo' component={SoloDisplay} />
       <Route path='/game/:id' component={PlayerDisplay} />
       <Route path='/help' component={Instructions} />
     </Route>

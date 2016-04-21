@@ -22,8 +22,9 @@ var Menu = React.createClass({
           placeholder='Enter Room Code'>
         </input>
         {this._renderJoinButton()}
-        <Link to='/game' className='link'>Start a New Game</Link>
-        <Link to='/help' className='link link--brown'>How To Play</Link>
+        <Link to='/game' className='link'>Start a Multiplayer Game</Link>
+        <Link to='/solo' className='link link--brown'>Start a Solo Game</Link>
+        <Link to='/help' className='link'>How to Play</Link>
       </main>
     );
   },

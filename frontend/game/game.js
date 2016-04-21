@@ -30,7 +30,6 @@ Game.prototype.isOver = function () {
 
 Game.prototype.chooseCard = function (idx) {
   var chosenCard = this.board.cardAt(idx);
-
   if (chosenCard.flipped) {
     throw 'InvalidCard';
   } else {

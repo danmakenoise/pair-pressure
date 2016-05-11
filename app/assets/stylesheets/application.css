@@ -162,3 +162,18 @@
 .message-board {
   font-size: 2em;
 }
+
+.p--about {
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+.link--inline {
+  display: inline;
+  color: #ce534d;
+  cursor: pointer;
+}
+
+.link--inline:hover {
+  color: #64b6b1;
+}

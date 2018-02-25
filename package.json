@@ -11,6 +11,7 @@
     "url": "git+https://github.com/danmakenoise/pair-pressure.git"
   },
   "scripts": {
+    "build": "webpack",
     "start": "node backend/server.js"
   },
   "engines": {

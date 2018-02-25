@@ -2,8 +2,6 @@ const express = require('express');
 
 const app = express();
 
-app.get('/', (_, res) => {
-  res.send('Pair Pressure!');
-});
+app.use(express.static('public'));
 
 app.listen(3000, () => console.log('Server is listening on localhost:3000'));

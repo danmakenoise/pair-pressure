@@ -25,6 +25,7 @@
     "babel-core": "^6.7.6",
     "babel-loader": "^6.2.4",
     "babel-preset-react": "^6.5.0",
+    "body-parser": "^1.18.2",
     "express": "^4.16.2",
     "flux": "^2.1.1",
     "react": "^15.0.1",

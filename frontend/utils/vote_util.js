@@ -24,7 +24,11 @@ var VoteUtil = {
       type: 'GET',
       url: 'api/votes/' + GameStore.token,
       dataType: 'json',
-      success: function (idx) {
+      success: function (data) {
+        console.log(data);
+
+        const idx = data.winner;
+
         if (idx < 0) {
           gameOverCallback();
         } else {

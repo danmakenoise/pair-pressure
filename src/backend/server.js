@@ -47,7 +47,9 @@ app.get('/api/votes/:token', (req, res) => {
   const winningIndex = game.votes.indexOf(winner)
 
   game.votes = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-  game.sessions.forEach(session => ACTIVE_SESSIONS[session].vote = null)
+  game.sessions.forEach(session => {
+    ACTIVE_SESSIONS[session].vote = null
+  })
 
   res.send({ winner: winningIndex })
 })

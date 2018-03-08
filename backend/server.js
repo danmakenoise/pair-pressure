@@ -20,6 +20,8 @@ app.post('/api/save', (req, res) => {
   }
 
   game.votes = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+  game.sessions = (ACTIVE_GAMES[game.token] && ACTIVE_GAMES[game.token].sessions) || [];
+
   ACTIVE_GAMES[game.token] = game;
   res.send(game.token);
 });
@@ -32,7 +34,7 @@ app.get('/api/games/:token', (req, res) => {
       cards: game.cards,
       currentCard: game.current_card,
       votes: game.votes,
-      players: (game.players || []).length,
+      players: (game.sessions || []).length,
     });
   }
 });
@@ -43,8 +45,10 @@ app.get('/api/votes/:token', (req, res) => {
 
   const winner = Math.max(...game.votes);
   const winningIndex = game.votes.indexOf(winner);
-
+  
   game.votes = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+  game.sessions.forEach(session => ACTIVE_SESSIONS[session].vote = null);
+
   res.send({ winner: winningIndex });
 });
 
@@ -52,34 +56,33 @@ app.post('/api/vote', (req, res) => {
   const gameToken = req.body.vote.token;
   const game = ACTIVE_GAMES[gameToken];
 
-  const player = ACTIVE_SESSIONS[req.body.sessionToken];
-  
+  const player = ACTIVE_SESSIONS[req.body.vote.sessionToken];
+  player.vote = req.body.vote.card;  
+
   game.votes[req.body.vote.card] += 1;
 
   res.send({ vote: req.body.vote.card });
 });
 
 app.get('/api/session', (req, res) => {
-  const gameToken = req.body.gameToken;
-  const sessionToken = req.body.sessionToken;
+  const gameToken = req.query.gameToken;
+  const sessionToken = req.query.sessionToken;
 
   let player;
-  const game = ACTIVE_GAMES[gameToken];
 
   if (sessionToken) {
     player = ACTIVE_SESSIONS[sessionToken];
   }
 
-  if (player && player.gameToken === game.token) {
-    res.send({
-      player,
-      votes: player.vote,
-    });
+  if (player && player.gameToken === gameToken) {
+    res.send({ ...player });
   } else {
     const token = Math.random().toString(16).slice(2, 6).toUpperCase();
-    player = { vote: null, gameToken };
+    player = { vote: null, gameToken, sessionToken: token };
 
-    res.send({ player });
+    ACTIVE_SESSIONS[token] = player;
+    ACTIVE_GAMES[gameToken].sessions.push(token);
+    res.send({ ...player });
   }
 });
 

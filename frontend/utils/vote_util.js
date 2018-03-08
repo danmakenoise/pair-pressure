@@ -1,17 +1,19 @@
 var GameStore = require('../stores/game_store');
 var GameActions = require('../actions/game_actions');
+var SessionStore = require('../stores/session_store');
 var VoteActions = require('../actions/vote_actions');
 var VoteStore = require('../stores/vote_store');
 
 var VoteUtil = {
-  castVote: function (idx) {
+  castVote: function (idx, sessionToken) {
     $.ajax({
       type: 'POST',
       url: 'api/vote',
       dataType: 'json',
       data: { vote: {
         token: GameStore.token,
-        card: idx
+        card: idx,
+        sessionToken: SessionStore.session.sessionToken,
       }},
       success: function () {
         VoteActions.confirmVote(idx);
@@ -25,8 +27,6 @@ var VoteUtil = {
       url: 'api/votes/' + GameStore.token,
       dataType: 'json',
       success: function (data) {
-        console.log(data);
-
         const idx = data.winner;
 
         if (idx < 0) {

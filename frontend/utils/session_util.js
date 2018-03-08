@@ -8,7 +8,7 @@ var SessionUtil = {
       type: 'GET',
       url: 'api/session',
       dataType: 'json',
-      data: { token: GameStore.token },
+      data: { gameToken: GameStore.token, sessionToken: SessionStore.session && SessionStore.session.sessionToken },
       success: function (sessionData) {
         SessionActions.receiveSession(sessionData);
       }

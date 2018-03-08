@@ -41,7 +41,6 @@
   color: #ffffff;
   font-size: 2em;
   padding: 10px 20px;
-  width: 100%;
 }
 
 .button {
@@ -49,6 +48,7 @@
   text-align: left;
   background-color: #46433a;
   color: #ded4b9;
+  width: 100%;
 }
 
 .link {

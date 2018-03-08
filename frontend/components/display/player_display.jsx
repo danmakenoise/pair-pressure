@@ -12,7 +12,7 @@ var Link = require('react-router').Link;
 var PlayerDisplay = React.createClass({
   getInitialState: function () {
     GameActions.receiveToken(this.props.params.id);
-    return {session: null, game: null, voted: true};
+    return {session: null, game: null, voted: -1};
   },
 
   componentDidMount: function () {
@@ -60,6 +60,7 @@ var PlayerDisplay = React.createClass({
   },
 
   _handleGameChange: function () {
+    console.log('handleGameChange');
     if (GameStore.game.isOver()) {
       this.setState({game: null});
       window.clearInterval(this.sessionTimeout);
@@ -77,12 +78,12 @@ var PlayerDisplay = React.createClass({
 
     this.setState({session: SessionStore.session });
 
-    if (!SessionStore.session.votes && SessionStore.session.votes !== 0) {
-      this.setState({voted: false});
+    if (SessionStore.session.vote === null) {
+      this.setState({voted: -1});
       VoteStore.voted = null;
       GameUtil.loadGame(this.props.params.id);
     } else {
-      this.setState({voted: SessionStore.session.votes.card});
+      this.setState({voted: parseInt(SessionStore.session.vote) });
     }
   },
 
@@ -91,9 +92,8 @@ var PlayerDisplay = React.createClass({
   },
 
   _castVote: function (idx) {
-    if (!this.state.voted && this.state.voted !== 0) {
-      this.setState({voted: true});
-      VoteUtil.castVote(idx);
+    if (this.state.voted < 0) {
+      VoteUtil.castVote(idx, SessionStore.session.token);
     }
   }
 });

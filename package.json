@@ -11,8 +11,8 @@
     "url": "git+https://github.com/danmakenoise/pair-pressure.git"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "postinstall": "./node_modules/.bin/webpack"
+    "build": "webpack",
+    "start": "node backend/server.js"
   },
   "engines": {
     "node": "v5.5.0",
@@ -25,6 +25,8 @@
     "babel-core": "^6.7.6",
     "babel-loader": "^6.2.4",
     "babel-preset-react": "^6.5.0",
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
     "flux": "^2.1.1",
     "react": "^15.0.1",
     "react-dom": "^15.0.1",

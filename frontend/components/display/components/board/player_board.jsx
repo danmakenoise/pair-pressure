@@ -3,6 +3,7 @@ var Card = require('./components/card');
 
 var PlayerBoard = React.createClass({
   render: function () {
+    console.log(this.props.voted);
     return(
       <section className="section board group">
         { this._renderCards() }

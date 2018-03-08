@@ -7,7 +7,7 @@ var GameUtil = {
     $.ajax({
       type: 'GET',
       url: 'api/games/' + id,
-      dataType: 'json',
+
       success: function (data) {
         var loadedGame = new Game(data.cards, data.currentCard, data.token);
         GameActions.receiveGame(loadedGame);

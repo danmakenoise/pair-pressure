@@ -4,7 +4,7 @@ module.exports = {
   context: __dirname,
   entry: './frontend/pair_pressure.jsx',
   output: {
-    path: path.join( __dirname, 'app', 'assets', 'javascripts' ),
+    path: path.join( __dirname, 'public'),
     filename: 'bundle.js'
   },
   resolve: {

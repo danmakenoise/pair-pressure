@@ -1,5 +1,5 @@
-var Dispatcher = require( 'flux' ).Dispatcher;
+var Dispatcher = require('flux').Dispatcher
 
-var GameDispatcher = new Dispatcher();
+var GameDispatcher = new Dispatcher()
 
-module.exports = GameDispatcher;
+module.exports = GameDispatcher

@@ -1,44 +1,44 @@
-var GameDispatcher = require('../dispatchers/game_dispatcher');
-var GameConstants = require('../constants/game_constants');
-var GameStore = require('../stores/game_store');
+var GameDispatcher = require('../dispatchers/game_dispatcher')
+var GameConstants = require('../constants/game_constants')
+var GameStore = require('../stores/game_store')
 
 var GameActions = {
   flipCard: function (idx) {
-    var game = GameStore.game;
-    game.chooseCard(idx);
+    var game = GameStore.game
+    game.chooseCard(idx)
     GameDispatcher.dispatch({
-      actionType: GameConstants.CARD_FLIPPED,
-    });
+      actionType: GameConstants.CARD_FLIPPED
+    })
   },
 
   receiveGame: function (game) {
     GameDispatcher.dispatch({
       actionType: GameConstants.RECEIVE_GAME,
       game: game
-    });
+    })
   },
 
   receiveGameInfo: function (info) {
     GameDispatcher.dispatch({
       actionType: GameConstants.RECEIVE_INFO,
       info: info
-    });
+    })
   },
 
   receiveToken: function (token) {
     GameDispatcher.dispatch({
       actionType: GameConstants.RECEIVE_TOKEN,
       token: token
-    });
+    })
   },
 
   startGame: function (game) {
     GameDispatcher.dispatch({
       actionType: GameConstants.START_GAME,
       game: game
-    });
-  },
+    })
+  }
 
-};
+}
 
-module.exports = GameActions;
+module.exports = GameActions

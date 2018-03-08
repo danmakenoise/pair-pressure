@@ -1,81 +1,80 @@
-var Board = require('./board');
-var Card = require('./card');
+var Board = require('./board')
+var Card = require('./card')
 
 var Game = function (cardsString, currentCard) {
-  var cards;
+  var cards
 
   if (cardsString) {
-    cards = Card.combinationsFromString(cardsString);
-    this.board = new Board(cards);
-    this.computerCardPos = parseInt(currentCard);
-    this.computerCard = this.board.cardAt(this.computerCardPos);
+    cards = Card.combinationsFromString(cardsString)
+    this.board = new Board(cards)
+    this.computerCardPos = parseInt(currentCard)
+    this.computerCard = this.board.cardAt(this.computerCardPos)
   } else {
-    cards = Card.allCombinations();
-    this.board = new Board(cards);
+    cards = Card.allCombinations()
+    this.board = new Board(cards)
   }
-
-};
+}
 
 Game.prototype.isOver = function () {
-  var over = true;
+  var over = true
 
-  this.board.cards.forEach(function(card){
+  this.board.cards.forEach(function (card) {
     if (!card.flipped) {
-      over = false;
+      over = false
     }
-  });
+  })
 
-  return over;
-};
+  return over
+}
 
 Game.prototype.chooseCard = function (idx) {
-  var chosenCard = this.board.cardAt(idx);
+  var chosenCard = this.board.cardAt(idx)
   if (chosenCard.flipped) {
-    throw 'InvalidCard';
+    throw 'InvalidCard'
   } else {
-    this.playerCardPos = idx;
-    this.playerCard = chosenCard;
-    chosenCard.flip();
+    this.playerCardPos = idx
+    this.playerCard = chosenCard
+    chosenCard.flip()
   }
-};
+}
 
 Game.prototype.handleGuess = function () {
   if (!this.playerCard.isMatch(this.computerCard)) {
-    this.computerCard.flip();
-    this.playerCard.flip();
+    this.computerCard.flip()
+    this.playerCard.flip()
   }
-    this.startRound();
-};
+  this.startRound()
+}
 
 Game.prototype.wasMatch = function () {
-  return (this.playerCard.isMatch(this.computerCard));
-};
+  return (this.playerCard.isMatch(this.computerCard))
+}
 
 Game.prototype.startRound = function () {
-  this.computerCardPos = null;
-  this.computerCard = null;
-  this.playerCard = null;
-  this.playerCardPos = null;
+  this.computerCardPos = null
+  this.computerCard = null
+  this.playerCard = null
+  this.playerCardPos = null
 
-  this._flipRandomCard();
-};
+  this._flipRandomCard()
+}
 
 Game.prototype._flipRandomCard = function () {
   var flipped = false,
-      chosenCard,
-      idx;
+    chosenCard,
+    idx
 
   while (!flipped) {
-    idx = Math.floor(Math.random() * this.board.size);
-    chosenCard = this.board.cardAt(idx);
+    idx = Math.floor(Math.random() * this.board.size)
+    chosenCard = this.board.cardAt(idx)
 
     if (!chosenCard.flipped) {
-      chosenCard.flip();
-      flipped = true;
-      this.computerCard = chosenCard;
-      this.computerCardPos = idx;
+      chosenCard.flip()
+      flipped = true
+      this.computerCard = chosenCard
+      this.computerCardPos = idx
     }
   }
-};
+}
 
-module.exports = Game;
+module.exports = Game

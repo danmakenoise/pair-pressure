@@ -1,8 +1,8 @@
-var GameStore = require('../stores/game_store');
-var GameActions = require('../actions/game_actions');
-var SessionStore = require('../stores/session_store');
-var VoteActions = require('../actions/vote_actions');
-var VoteStore = require('../stores/vote_store');
+var GameStore = require('../stores/game_store')
+var GameActions = require('../actions/game_actions')
+var SessionStore = require('../stores/session_store')
+var VoteActions = require('../actions/vote_actions')
+var VoteStore = require('../stores/vote_store')
 
 var VoteUtil = {
   castVote: function (idx, sessionToken) {
@@ -13,12 +13,12 @@ var VoteUtil = {
       data: { vote: {
         token: GameStore.token,
         card: idx,
-        sessionToken: SessionStore.session.sessionToken,
+        sessionToken: SessionStore.session.sessionToken
       }},
       success: function () {
-        VoteActions.confirmVote(idx);
-      },
-    });
+        VoteActions.confirmVote(idx)
+      }
+    })
   },
 
   processVotes: function (gameOverCallback) {
@@ -27,16 +27,16 @@ var VoteUtil = {
       url: 'api/votes/' + GameStore.token,
       dataType: 'json',
       success: function (data) {
-        const idx = data.winner;
+        const idx = data.winner
 
         if (idx < 0) {
-          gameOverCallback();
+          gameOverCallback()
         } else {
-          GameActions.flipCard(idx);
+          GameActions.flipCard(idx)
         }
-      },
-    });
-  },
-};
+      }
+    })
+  }
+}
 
-module.exports = VoteUtil;
+module.exports = VoteUtil

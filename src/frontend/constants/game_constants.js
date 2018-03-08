@@ -3,6 +3,6 @@ var GameConstants = {
   RECEIVE_GAME: 'RECEIVE_GAME',
   RECEIVE_TOKEN: 'RECEIVE_TOKEN',
   RECEIVE_INFO: 'RECEIVE_INFO'
-};
+}
 
-module.exports = GameConstants;
+module.exports = GameConstants

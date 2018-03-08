@@ -1,6 +1,6 @@
-var Game = require('../game/game');
-var GameStore = require('../stores/game_store');
-var GameActions = require('../actions/game_actions');
+var Game = require('../game/game')
+var GameStore = require('../stores/game_store')
+var GameActions = require('../actions/game_actions')
 
 var GameUtil = {
   loadGame: function (id) {
@@ -9,10 +9,10 @@ var GameUtil = {
       url: 'api/games/' + id,
 
       success: function (data) {
-        var loadedGame = new Game(data.cards, data.currentCard, data.token);
-        GameActions.receiveGame(loadedGame);
+        var loadedGame = new Game(data.cards, data.currentCard, data.token)
+        GameActions.receiveGame(loadedGame)
       }
-    });
+    })
   },
 
   fetchGameInfo: function () {
@@ -21,9 +21,9 @@ var GameUtil = {
       url: 'api/games/' + GameStore.token,
       dataType: 'json',
       success: function (data) {
-        GameActions.receiveGameInfo(data);
+        GameActions.receiveGameInfo(data)
       }
-    });
+    })
   },
 
   saveGame: function () {
@@ -37,23 +37,23 @@ var GameUtil = {
         token: GameStore.token
       }},
       success: function () {
-      },
-    });
+      }
+    })
   },
 
   startNewGame: function () {
-    var newGame = new Game();
-    newGame.startRound();
-    this._createGame(newGame);
-    GameActions.startGame(newGame);
+    var newGame = new Game()
+    newGame.startRound()
+    this._createGame(newGame)
+    GameActions.startGame(newGame)
   },
 
   startSoloGame: function () {
-    var newGame = new Game();
-    newGame.startRound();
-    GameActions.startGame(newGame);
+    var newGame = new Game()
+    newGame.startRound()
+    GameActions.startGame(newGame)
   },
-  
+
   _createGame: function (newGame) {
     $.ajax({
       type: 'POST',
@@ -64,24 +64,24 @@ var GameUtil = {
         current_card: newGame.computerCardPos
       }},
       success: function (token) {
-        GameActions.receiveToken(token);
-      },
-    });
+        GameActions.receiveToken(token)
+      }
+    })
   },
 
   _stringifyCards: function (cards) {
-    var output = [];
+    var output = []
 
-    cards.forEach(function(card) {
-      var currentCard = [];
-      currentCard.push(card.symbol);
-      currentCard.push(card.color);
-      currentCard.push(card.flipped);
-      output.push(currentCard.join(','));
-    });
+    cards.forEach(function (card) {
+      var currentCard = []
+      currentCard.push(card.symbol)
+      currentCard.push(card.color)
+      currentCard.push(card.flipped)
+      output.push(currentCard.join(','))
+    })
 
-    return output.join('\n');
-  },
-};
+    return output.join('\n')
+  }
+}
 
-module.exports = GameUtil;
+module.exports = GameUtil

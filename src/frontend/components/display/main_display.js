@@ -1,6 +1,5 @@
 var React = require('react')
 var MainBoard = require('./components/board/main_board')
-var GameActions = require('../../actions/game_actions')
 var GameUtil = require('../../utils/game_util')
 var GameStore = require('../../stores/game_store')
 var InfoStore = require('../../stores/info_store')
@@ -30,17 +29,17 @@ var MainDisplay = React.createClass({
   render: function () {
     if (this.state.game) {
       return (
-        <main className="main display">
+        <main className='main display'>
           <MainBoard
             board={this.state.game.board}
             players={this.state.players}
             votes={this.state.votes}
             compChoice={this.state.game.computerCardPos}
           />
-          <h2 className="subheader">
+          <h2 className='subheader'>
             Players: {this.state.players} - Room Code: {GameStore.token}
           </h2>
-          <h2 className="message-board">
+          <h2 className='message-board'>
             {this.state.message}
           </h2>
           <Timer

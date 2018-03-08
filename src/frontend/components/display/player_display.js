@@ -38,7 +38,7 @@ var PlayerDisplay = React.createClass({
   render: function () {
     if (this.state.game && this.state.session) {
       return (
-        <main className="main display">
+        <main className='main display'>
           <PlayerBoard
             board={this.state.game.board}
             onClick={this._castVote}
@@ -76,19 +76,19 @@ var PlayerDisplay = React.createClass({
   _handleSessionChange: function () {
     this.sessionTimeout = window.setTimeout(this._fetchSession, 1000)
 
-    this.setState({session: SessionStore.session })
+    this.setState({ session: SessionStore.session })
 
     if (SessionStore.session.vote === null) {
       this.setState({voted: -1})
       VoteStore.voted = null
       GameUtil.loadGame(this.props.params.id)
     } else {
-      this.setState({voted: parseInt(SessionStore.session.vote) })
+      this.setState({ voted: parseInt(SessionStore.session.vote) })
     }
   },
 
   _handleVoteChange: function () {
-    this.setState({voted: VoteStore.voted })
+    this.setState({ voted: VoteStore.voted })
   },
 
   _castVote: function (idx) {

@@ -3,8 +3,6 @@ var PlayerBoard = require('./components/board/player_board')
 var GameActions = require('../../actions/game_actions')
 var GameUtil = require('../../utils/game_util')
 var GameStore = require('../../stores/game_store')
-var InfoStore = require('../../stores/info_store')
-var VoteUtil = require('../../utils/vote_util')
 var Timer = require('./components/timer')
 var Link = require('react-router').Link
 
@@ -27,14 +25,14 @@ var SoloDisplay = React.createClass({
   render: function () {
     if (this.state.game) {
       return (
-        <main className="main display">
+        <main className='main display'>
           <PlayerBoard
             board={this.state.game.board}
             voted={this.state.voted}
             onClick={this._castVote}
             compChoice={this.state.game.computerCardPos}
           />
-          <h2 className="message-board">
+          <h2 className='message-board'>
             {this.state.message}
           </h2>
           <Timer

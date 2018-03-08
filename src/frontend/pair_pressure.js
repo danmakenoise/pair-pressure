@@ -10,7 +10,6 @@ var Menu = require('./components/menu')
 var MainDisplay = require('./components/display/main_display')
 var PlayerDisplay = require('./components/display/player_display')
 var SoloDisplay = require('./components/display/solo_display')
-var Game = require('./game/game')
 var Instructions = require('./components/instructions')
 
 var PairPressure = React.createClass({
@@ -21,8 +20,8 @@ var PairPressure = React.createClass({
   render: function () {
     return (
       <section className='section pair-pressure'>
-        <header className="header">
-          <h1 onClick={this._goHome} className="headline headline--clickable">
+        <header className='header'>
+          <h1 onClick={this._goHome} className='headline headline--clickable'>
               Pair Pressure
           </h1>
         </header>
@@ -52,7 +51,7 @@ $(function () {
   var root = $('#pair-pressure')[0]
 
   ReactDOM.render(
-    <Router history={ hashHistory }>{routes}</Router>,
+    <Router history={hashHistory}>{routes}</Router>,
     root
   )
 })

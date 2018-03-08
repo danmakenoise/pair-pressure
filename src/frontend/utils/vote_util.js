@@ -2,7 +2,6 @@ var GameStore = require('../stores/game_store')
 var GameActions = require('../actions/game_actions')
 var SessionStore = require('../stores/session_store')
 var VoteActions = require('../actions/vote_actions')
-var VoteStore = require('../stores/vote_store')
 
 var VoteUtil = {
   castVote: function (idx, sessionToken) {

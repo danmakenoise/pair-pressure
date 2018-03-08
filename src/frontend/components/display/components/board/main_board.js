@@ -4,7 +4,7 @@ var Card = require('./components/card')
 var MainBoard = React.createClass({
   render: function () {
     return (
-      <section className="section board group">
+      <section className='section board group'>
         { this._renderCards() }
       </section>
     )

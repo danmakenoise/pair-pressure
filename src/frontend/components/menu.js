@@ -19,16 +19,15 @@ var Menu = React.createClass({
           value={this.state.roomCode}
           className='input'
           onChange={this._handleChange}
-          placeholder='Enter Room Code'>
-        </input>
+          placeholder='Enter Room Code' />
         {this._renderJoinButton()}
         <Link to='/game' className='link'>Start a Multiplayer Game</Link>
         <Link to='/solo' className='link link--brown'>Start a Solo Game</Link>
         <Link to='/help' className='link'>How to Play</Link>
         <p className='p--about'>
             Pair Pressure was created by Dan Phillips. Check out his
-          <a className="link--inline" href='http://www.danphillips.io'> Portfolio</a> or find him on
-          <a className="link--inline" href='https://www.github.com/danmakenoise'> Github</a>
+          <a className='link--inline' href='http://www.danphillips.io'> Portfolio</a> or find him on
+          <a className='link--inline' href='https://www.github.com/danmakenoise'> Github</a>
         </p>
       </main>
     )

@@ -5,10 +5,10 @@ var Card = function (symbol, color, flipped) {
 }
 
 Card.allCombinations = function () {
-  var allCards = [],
-    allSymbols = Card._allSymbols,
-    allColors = Card._allColors,
-    newCard
+  var allCards = []
+  var allSymbols = Card._allSymbols
+  var allColors = Card._allColors
+  var newCard
 
   allSymbols.forEach(function (symbol) {
     var colorIdx = Math.floor(Math.random() * allColors.length)
@@ -24,12 +24,12 @@ Card.allCombinations = function () {
 }
 
 Card.combinationsFromString = function (string) {
-  var cards = string.split('\n'),
-    output = [],
-    newCard,
-    symbol,
-    color,
-    flipped
+  var cards = string.split('\n')
+  var output = []
+  var newCard
+  var symbol
+  var color
+  var flipped
 
   cards.forEach(function (card) {
     card = card.split(',')
@@ -72,10 +72,10 @@ Card._allColors = [
 ]
 
 Card._shuffle = function (array) {
-  var numShifts = 1000,
-    indexOne,
-    indexTwo,
-    temp
+  var numShifts = 1000
+  var indexOne
+  var indexTwo
+  var temp
 
   for (var i = 0; i < numShifts; i++) {
     indexOne = Math.floor(Math.random() * array.length)

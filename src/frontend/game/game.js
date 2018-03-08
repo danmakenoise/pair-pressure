@@ -30,7 +30,7 @@ Game.prototype.isOver = function () {
 Game.prototype.chooseCard = function (idx) {
   var chosenCard = this.board.cardAt(idx)
   if (chosenCard.flipped) {
-    throw 'InvalidCard'
+    throw new Error('InvalidCard')
   } else {
     this.playerCardPos = idx
     this.playerCard = chosenCard
@@ -60,9 +60,9 @@ Game.prototype.startRound = function () {
 }
 
 Game.prototype._flipRandomCard = function () {
-  var flipped = false,
-    chosenCard,
-    idx
+  var flipped = false
+  var chosenCard
+  var idx
 
   while (!flipped) {
     idx = Math.floor(Math.random() * this.board.size)

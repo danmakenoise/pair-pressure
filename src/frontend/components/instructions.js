@@ -1,13 +1,13 @@
-var React = require('react');
-var Link = require('react-router').Link;
+var React = require('react')
+var Link = require('react-router').Link
 
 var Instructions = React.createClass({
   contextTypes: {
     router: React.PropTypes.object.isRequired
   },
 
-  render: function() {
-    return(
+  render: function () {
+    return (
       <main className='main instructions'>
         <article className='article'>
           <h2 className='subheader'>
@@ -28,31 +28,31 @@ var Instructions = React.createClass({
         </article>
         <Link to='/' className='link'>Go Back</Link>
       </main>
-    );
+    )
   },
 
   _renderJoinButton: function () {
     if (this.state.roomCode.length === 4) {
-      return(
+      return (
         <button className='button' onClick={this._joinGame}>
           Join Room!
         </button>
-      );
+      )
     }
   },
 
   _handleChange: function () {
     if (this.refs.roomCode.value.length <= 4) {
-      this.setState({roomCode: this.refs.roomCode.value});
+      this.setState({roomCode: this.refs.roomCode.value})
     }
   },
 
   _joinGame: function () {
-    if(this.refs.roomCode.value.length === 4) {
-      var url = '/game/' + this.refs.roomCode.value.toLowerCase();
-      this.context.router.push(url);
+    if (this.refs.roomCode.value.length === 4) {
+      var url = '/game/' + this.refs.roomCode.value.toLowerCase()
+      this.context.router.push(url)
     }
   }
-});
+})
 
-module.exports = Instructions;
+module.exports = Instructions

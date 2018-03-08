@@ -1,18 +1,18 @@
-var React = require('react');
-var Card = require('./components/card');
+var React = require('react')
+var Card = require('./components/card')
 
 var MainBoard = React.createClass({
   render: function () {
-    return(
+    return (
       <section className="section board group">
         { this._renderCards() }
       </section>
-    );
+    )
   },
 
   _renderCards: function () {
-    return this.props.board.cards.map(function(card, index) {
-      var votes = this.props.votes[index] ? this.props.votes[index] : 0;
+    return this.props.board.cards.map(function (card, index) {
+      var votes = this.props.votes[index] ? this.props.votes[index] : 0
 
       return (
         <Card
@@ -21,9 +21,9 @@ var MainBoard = React.createClass({
           votes={votes / this.props.players}
           chosen={this.props.compChoice === index}
         />
-      );
-    }.bind(this));
-  },
-});
+      )
+    }.bind(this))
+  }
+})
 
-module.exports = MainBoard;
+module.exports = MainBoard

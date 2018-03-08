@@ -1,5 +1,5 @@
-var React = require('react');
-var Link = require('react-router').Link;
+var React = require('react')
+var Link = require('react-router').Link
 
 var Menu = React.createClass({
   contextTypes: {
@@ -7,11 +7,11 @@ var Menu = React.createClass({
   },
 
   getInitialState: function () {
-    return { roomCode: '' };
+    return { roomCode: '' }
   },
 
-  render: function() {
-    return(
+  render: function () {
+    return (
       <main className='main menu'>
         <input
           ref='roomCode'
@@ -27,35 +27,35 @@ var Menu = React.createClass({
         <Link to='/help' className='link'>How to Play</Link>
         <p className='p--about'>
             Pair Pressure was created by Dan Phillips. Check out his
-            <a className="link--inline" href='http://www.danphillips.io'> Portfolio</a> or find him on
-            <a className="link--inline" href='https://www.github.com/danmakenoise'> Github</a>
+          <a className="link--inline" href='http://www.danphillips.io'> Portfolio</a> or find him on
+          <a className="link--inline" href='https://www.github.com/danmakenoise'> Github</a>
         </p>
       </main>
-    );
+    )
   },
 
   _renderJoinButton: function () {
     if (this.state.roomCode.length === 4) {
-      return(
+      return (
         <button className='button' onClick={this._joinGame}>
           Join Room!
         </button>
-      );
+      )
     }
   },
 
   _handleChange: function () {
     if (this.refs.roomCode.value.length <= 4) {
-      this.setState({roomCode: this.refs.roomCode.value});
+      this.setState({roomCode: this.refs.roomCode.value})
     }
   },
 
   _joinGame: function () {
-    if(this.refs.roomCode.value.length === 4) {
-      var url = '/game/' + this.refs.roomCode.value.toLowerCase();
-      this.context.router.push(url);
+    if (this.refs.roomCode.value.length === 4) {
+      var url = '/game/' + this.refs.roomCode.value.toLowerCase()
+      this.context.router.push(url)
     }
   }
-});
+})
 
-module.exports = Menu;
+module.exports = Menu

@@ -2,7 +2,7 @@ var path = require('path');
 
 module.exports = {
   context: __dirname,
-  entry: './src/frontend/pair_pressure.jsx',
+  entry: './src/frontend/pair_pressure.js',
   output: {
     path: path.join( __dirname, 'public'),
     filename: 'bundle.js'

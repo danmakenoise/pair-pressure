@@ -1,7 +1,12 @@
 'use strict'
 const bodyParser = require('body-parser')
 const express = require('express')
+const webpack = require('webpack')
+const webpackDevMiddleware = require('webpack-dev-middleware')
+const webpackHotMiddleware = require('webpack-hot-middleware')
 
+const config = require('../../webpack.config.js')
+const compiler = webpack(config)
 const app = express()
 
 const ACTIVE_GAMES = {}
@@ -10,6 +15,10 @@ const ACTIVE_SESSIONS = {}
 app.use(express.static('public'))
 app.use(bodyParser.urlencoded())
 app.use(bodyParser.json())
+app.use(webpackDevMiddleware(compiler, {
+  publicPath: config.output.publicPath
+}))
+app.use(webpackHotMiddleware(compiler))
 
 app.post('/api/save', (req, res) => {
   const game = req.body.game

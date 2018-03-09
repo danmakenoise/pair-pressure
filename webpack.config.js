@@ -1,7 +1,12 @@
 const path = require('path')
+const webpack = require('webpack')
 
 const config = {
-  entry: './src/frontend/pair_pressure.js',
+  mode: 'development',
+  entry: [
+    './src/frontend/pair_pressure.js',
+    'webpack-hot-middleware/client'
+  ],
   output: {
     filename: 'bundle.js',
     path: path.join(__dirname, '/public')
@@ -14,12 +19,17 @@ const config = {
         use: {
           loader: 'babel-loader',
           options: {
+            plugins: ['react-hot-loader/babel'],
             presets: ['env', 'react']
           }
         }
       }
     ]
-  }
+  },
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoEmitOnErrorsPlugin()
+  ]
 }
 
 module.exports = config

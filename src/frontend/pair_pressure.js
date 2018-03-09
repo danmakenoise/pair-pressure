@@ -47,8 +47,8 @@ var routes = (
   </Route>
 )
 
-$(function () {
-  var root = $('#pair-pressure')[0]
+document.addEventListener('DOMContentLoaded', (event) => {
+  var root = document.getElementById('pair-pressure')
 
   ReactDOM.render(
     <Router history={hashHistory}>{routes}</Router>,

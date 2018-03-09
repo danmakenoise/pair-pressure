@@ -2,8 +2,5 @@
   "extends": [
     "standard",
     "standard-jsx"
-  ],
-  globals: {
-    "$": false
-  }
+  ]
 }

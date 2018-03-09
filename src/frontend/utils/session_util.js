@@ -4,15 +4,17 @@ var SessionStore = require('../stores/session_store')
 
 var SessionUtil = {
   fetchSession: function () {
-    $.ajax({
-      type: 'GET',
-      url: 'api/session',
-      dataType: 'json',
-      data: { gameToken: GameStore.token, sessionToken: SessionStore.session && SessionStore.session.sessionToken },
-      success: function (sessionData) {
+    const session = SessionStore.session ? SessionStore.session.sessionToken : null
+
+    const baseUrl = 'api/session?'
+    const gameToken = `gameToken=${GameStore.token}`
+    const sessionToken = session ? `&sessionToken=${session}` : ''
+
+    window.fetch(baseUrl + gameToken + sessionToken)
+      .then(res => res.json())
+      .then(sessionData => {
         SessionActions.receiveSession(sessionData)
-      }
-    })
+      })
   }
 }
 

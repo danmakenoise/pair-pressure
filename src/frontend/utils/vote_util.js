@@ -4,28 +4,25 @@ var SessionStore = require('../stores/session_store')
 var VoteActions = require('../actions/vote_actions')
 
 var VoteUtil = {
-  castVote: function (idx, sessionToken) {
-    $.ajax({
-      type: 'POST',
-      url: 'api/vote',
-      dataType: 'json',
-      data: { vote: {
-        token: GameStore.token,
-        card: idx,
-        sessionToken: SessionStore.session.sessionToken
-      }},
-      success: function () {
-        VoteActions.confirmVote(idx)
-      }
+  castVote: function (idx) {
+    window.fetch('api/vote', {
+      body: JSON.stringify({
+        vote: {
+          token: GameStore.token,
+          card: idx,
+          sessionToken: SessionStore.session.sessionToken
+        }
+      }),
+      headers: { 'content-type': 'application/json' },
+      method: 'POST'
     })
+      .then(() => VoteActions.confirmVote(idx))
   },
 
   processVotes: function (gameOverCallback) {
-    $.ajax({
-      type: 'GET',
-      url: 'api/votes/' + GameStore.token,
-      dataType: 'json',
-      success: function (data) {
+    window.fetch('api/votes/' + GameStore.token)
+      .then(res => res.json())
+      .then(data => {
         const idx = data.winner
 
         if (idx < 0) {
@@ -33,8 +30,7 @@ var VoteUtil = {
         } else {
           GameActions.flipCard(idx)
         }
-      }
-    })
+      })
   }
 }
 

@@ -1,10 +1,10 @@
-var path = require('path');
+var path = require('path')
 
 module.exports = {
   context: __dirname,
   entry: './src/frontend/pair_pressure.js',
   output: {
-    path: path.join( __dirname, 'public'),
+    path: path.join(__dirname, 'public'),
     filename: 'bundle.js'
   },
   resolve: {
@@ -27,4 +27,4 @@ module.exports = {
     ]
   },
   devtool: 'eval-source-map'
-};
+}

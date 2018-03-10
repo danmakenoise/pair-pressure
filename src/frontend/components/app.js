@@ -1,3 +1,4 @@
+import MainDisplay from './MainDisplay'
 const { hot } = require('react-hot-loader')
 var React = require('react')
 var ReactRouter = require('react-router')
@@ -8,7 +9,6 @@ var hashHistory = ReactRouter.hashHistory
 var IndexRoute = ReactRouter.IndexRoute
 
 var Menu = require('./menu')
-var MainDisplay = require('./display/main_display')
 var PlayerDisplay = require('./display/player_display')
 var SoloDisplay = require('./display/solo_display')
 var Instructions = require('./instructions')

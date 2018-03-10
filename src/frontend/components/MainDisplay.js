@@ -1,32 +1,40 @@
 import React from 'react'
-import MainBoard from '../MainBoard'
-import Timer from '../timer'
-var GameUtil = require('../../utils/game_util')
-var GameStore = require('../../stores/game_store')
-var InfoStore = require('../../stores/info_store')
-var VoteUtil = require('../../utils/vote_util')
+import MainBoard from './MainBoard'
+import Timer from './Timer'
+var GameUtil = require('../utils/game_util')
+var GameStore = require('../stores/game_store')
+var InfoStore = require('../stores/info_store')
+var VoteUtil = require('../utils/vote_util')
 var Link = require('react-router').Link
 
-var MainDisplay = React.createClass({
-  getInitialState: function () {
-    return {votes: {}, players: 0, game: null, turnPhase: 'joining', timeRemaining: null}
-  },
+class MainDisplay extends React.Component {
+  constructor (props) {
+    super(props)
 
-  componentDidMount: function () {
+    this.state = {
+      votes: {},
+      players: 0,
+      game: null,
+      turnPhase: 'joining',
+      timeRemaining: null
+    }
+  }
+
+  componentDidMount () {
     this.gameListener = GameStore.addListener(this._handleGameChange)
     this.infoListener = InfoStore.addListener(this._handleInfoChange)
     this.infoTimeout = window.setTimeout(this._fetchGameInfo, 1000)
     GameUtil.startNewGame()
-  },
+  }
 
-  componentWillUnmount: function () {
+  componentWillUnmount () {
     this.gameListener.remove()
     this.infoListener.remove()
     window.clearTimeout(this.votingTimeout)
     window.clearTimeout(this.infoTimeout)
-  },
+  }
 
-  render: function () {
+  render () {
     if (this.state.game) {
       return (
         <main className='main display'>
@@ -55,20 +63,20 @@ var MainDisplay = React.createClass({
         </main>
       )
     }
-  },
+  }
 
-  _fetchGameInfo: function () {
+  _fetchGameInfo () {
     if (this.state.game) {
       GameUtil.fetchGameInfo()
       this.infoTimeout = window.setTimeout(this._fetchGameInfo, 1000)
     }
-  },
+  }
 
-  _handleInfoChange: function () {
+  _handleInfoChange () {
     this.setState({players: InfoStore.players, votes: InfoStore.votes})
-  },
+  }
 
-  _handleGameChange: function () {
+  _handleGameChange () {
     if (this.state.turnPhase === 'joining') {
       this._startVoting()
     } else if (this.state.turnPhase === 'revealing') {
@@ -78,9 +86,9 @@ var MainDisplay = React.createClass({
     } else {
       this.setState({game: GameStore.game})
     }
-  },
+  }
 
-  _handleGuess: function () {
+  _handleGuess () {
     if (GameStore.game.isOver()) {
       GameUtil.saveGame()
       this.setState({game: null, message: 'You Won!'})
@@ -89,9 +97,9 @@ var MainDisplay = React.createClass({
       GameUtil.saveGame()
       this._startVoting()
     }
-  },
+  }
 
-  _updateVoteCycle: function () {
+  _updateVoteCycle () {
     if (this.state.timeRemaining > 0) {
       this.setState({timeRemaining: this.state.timeRemaining - 1})
       this.votingTimeout = window.setTimeout(this._updateVoteCycle, 1000)
@@ -99,18 +107,18 @@ var MainDisplay = React.createClass({
       this.setState({turnPhase: 'revealing', timeRemaining: null})
       VoteUtil.processVotes(this._gameOver)
     }
-  },
+  }
 
-  _gameOver: function () {
+  _gameOver () {
     this.setState({game: null, message: 'Game Over!'})
     this.gameListener.remove()
     this.voteListener.remove()
     this.sessionListener.remove()
     window.clearTimeout(this.sessionTimeout)
     window.clearTimeout(this.infoTimeout)
-  },
+  }
 
-  _startVoting: function () {
+  _startVoting () {
     if (this.state.turnPhase === 'joining') {
       this.setState({
         game: GameStore.game,
@@ -128,6 +136,6 @@ var MainDisplay = React.createClass({
     }
     window.setTimeout(this._updateVoteCycle, 1000)
   }
-})
+}
 
 module.exports = MainDisplay

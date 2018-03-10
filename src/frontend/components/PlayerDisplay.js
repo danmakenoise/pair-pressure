@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import React from 'react'
 import PlayerBoard from './PlayerBoard'
 var GameActions = require('../actions/game_actions')
@@ -7,7 +8,6 @@ var SessionStore = require('../stores/session_store')
 var SessionUtil = require('../utils/session_util')
 var VoteStore = require('../stores/vote_store')
 var VoteUtil = require('../utils/vote_util')
-var Link = require('react-router').Link
 
 class PlayerDisplay extends React.Component {
   constructor (props) {

@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types'
+import { BrowserRouter, Route, withRouter } from 'react-router-dom'
 import Instructions from './Instructions'
 import MainDisplay from './MainDisplay'
 import Menu from './Menu'
@@ -7,18 +7,8 @@ import SoloDisplay from './SoloDisplay'
 
 const { hot } = require('react-hot-loader')
 var React = require('react')
-var ReactRouter = require('react-router')
 
-var Route = ReactRouter.Route
-var Router = ReactRouter.Router
-var hashHistory = ReactRouter.hashHistory
-var IndexRoute = ReactRouter.IndexRoute
-
-const contextTypes = {
-  router: PropTypes.object.isRequired
-}
-
-class PairPressure extends React.Component {
+class _PairPressure extends React.Component {
   constructor (props) {
     super(props)
 
@@ -39,24 +29,22 @@ class PairPressure extends React.Component {
   }
 
   _goHome () {
-    this.context.router.push('/')
+    this.props.history.push('/')
   }
 }
 
-PairPressure.contextTypes = contextTypes
+const PairPressure = withRouter(_PairPressure)
 
 var routes = (
-  <Route>
-    <Route path='/' component={PairPressure}>
-      <IndexRoute component={Menu} />
-      <Route path='/game' component={MainDisplay} />
-      <Route path='/solo' component={SoloDisplay} />
-      <Route path='/game/:id' component={PlayerDisplay} />
-      <Route path='/help' component={Instructions} />
-    </Route>
-  </Route>
+  <PairPressure>
+    <Route exact path='/' component={Menu} />
+    <Route path='/game' component={MainDisplay} />
+    <Route path='/solo' component={SoloDisplay} />
+    <Route path='/game/:id' component={PlayerDisplay} />
+    <Route path='/help' component={Instructions} />
+  </PairPressure>
 )
 
-var App = () => <Router history={hashHistory}>{routes}</Router>
+var App = () => <BrowserRouter>{routes}</BrowserRouter>
 
 export default hot(module)(App)

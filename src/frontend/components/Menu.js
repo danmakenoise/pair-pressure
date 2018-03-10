@@ -1,10 +1,5 @@
-import PropTypes from 'prop-types'
+import { Link, withRouter } from 'react-router-dom'
 var React = require('react')
-var Link = require('react-router').Link
-
-const contextTypes = {
-  router: PropTypes.object.isRequired
-}
 
 class Menu extends React.Component {
   constructor (props) {
@@ -61,10 +56,9 @@ class Menu extends React.Component {
   _joinGame () {
     if (this.refs.roomCode.value.length === 4) {
       var url = '/game/' + this.refs.roomCode.value.toLowerCase()
-      this.context.router.push(url)
+      this.props.history.push(url)
     }
   }
 }
 
-Menu.contextTypes = contextTypes
-export default Menu
+export default withRouter(Menu)

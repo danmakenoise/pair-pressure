@@ -1,9 +1,9 @@
 import React from 'react'
 import PlayerBoard from '../PlayerBoard'
+import Timer from '../timer'
 var GameActions = require('../../actions/game_actions')
 var GameUtil = require('../../utils/game_util')
 var GameStore = require('../../stores/game_store')
-var Timer = require('./components/timer')
 var Link = require('react-router').Link
 
 var SoloDisplay = React.createClass({

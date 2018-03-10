@@ -1,11 +1,11 @@
 import React from 'react'
 import MainBoard from '../MainBoard'
+import Timer from '../timer'
 var GameUtil = require('../../utils/game_util')
 var GameStore = require('../../stores/game_store')
 var InfoStore = require('../../stores/info_store')
 var VoteUtil = require('../../utils/vote_util')
 var Link = require('react-router').Link
-var Timer = require('./components/timer')
 
 var MainDisplay = React.createClass({
   getInitialState: function () {

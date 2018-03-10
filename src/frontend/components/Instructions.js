@@ -1,12 +1,20 @@
 var React = require('react')
 var Link = require('react-router').Link
 
-var Instructions = React.createClass({
-  contextTypes: {
-    router: React.PropTypes.object.isRequired
-  },
+const contextTypes = {
+  router: React.PropTypes.object.isRequired
+}
 
-  render: function () {
+class Instructions extends React.Component {
+  constructor (props) {
+    super(props)
+
+    this._renderJoinButton = this._renderJoinButton.bind(this)
+    this._handleChange = this._handleChange.bind(this)
+    this._joinGame = this._joinGame.bind(this)
+  }
+
+  render () {
     return (
       <main className='main instructions'>
         <article className='article'>
@@ -29,9 +37,9 @@ var Instructions = React.createClass({
         <Link to='/' className='link'>Go Back</Link>
       </main>
     )
-  },
+  }
 
-  _renderJoinButton: function () {
+  _renderJoinButton () {
     if (this.state.roomCode.length === 4) {
       return (
         <button className='button' onClick={this._joinGame}>
@@ -39,20 +47,21 @@ var Instructions = React.createClass({
         </button>
       )
     }
-  },
+  }
 
-  _handleChange: function () {
+  _handleChange () {
     if (this.refs.roomCode.value.length <= 4) {
       this.setState({roomCode: this.refs.roomCode.value})
     }
-  },
+  }
 
-  _joinGame: function () {
+  _joinGame () {
     if (this.refs.roomCode.value.length === 4) {
       var url = '/game/' + this.refs.roomCode.value.toLowerCase()
       this.context.router.push(url)
     }
   }
-})
+}
 
-module.exports = Instructions
+Instructions.contextTypes = contextTypes
+export default Instructions

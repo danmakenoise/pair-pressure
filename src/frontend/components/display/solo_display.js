@@ -1,5 +1,5 @@
-var React = require('react')
-var PlayerBoard = require('./components/board/player_board')
+import React from 'react'
+import PlayerBoard from '../PlayerBoard'
 var GameActions = require('../../actions/game_actions')
 var GameUtil = require('../../utils/game_util')
 var GameStore = require('../../stores/game_store')

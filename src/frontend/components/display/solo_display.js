@@ -1,6 +1,6 @@
 import React from 'react'
 import PlayerBoard from '../PlayerBoard'
-import Timer from '../timer'
+import Timer from '../Timer'
 var GameActions = require('../../actions/game_actions')
 var GameUtil = require('../../utils/game_util')
 var GameStore = require('../../stores/game_store')

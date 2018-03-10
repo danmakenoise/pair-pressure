@@ -26,10 +26,11 @@
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
     "flux": "^2.1.1",
-    "react": "^15.0.1",
-    "react-dom": "^15.0.1",
+    "prop-types": "^15.6.1",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
     "react-hot-loader": "^4.0.0",
-    "react-router": "^2.1.1"
+    "react-router": "^3.2.1"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",

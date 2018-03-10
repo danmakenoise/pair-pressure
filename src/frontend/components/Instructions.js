@@ -1,8 +1,9 @@
+import PropTypes from 'prop-types'
 var React = require('react')
 var Link = require('react-router').Link
 
 const contextTypes = {
-  router: React.PropTypes.object.isRequired
+  router: PropTypes.object.isRequired
 }
 
 class Instructions extends React.Component {

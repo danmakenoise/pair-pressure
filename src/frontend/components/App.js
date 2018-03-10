@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import Instructions from './Instructions'
 import MainDisplay from './MainDisplay'
 import Menu from './Menu'
@@ -14,7 +15,7 @@ var hashHistory = ReactRouter.hashHistory
 var IndexRoute = ReactRouter.IndexRoute
 
 const contextTypes = {
-  router: React.PropTypes.object.isRequired
+  router: PropTypes.object.isRequired
 }
 
 class PairPressure extends React.Component {

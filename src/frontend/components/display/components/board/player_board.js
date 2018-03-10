@@ -1,5 +1,5 @@
-var React = require('react')
-var Card = require('./components/card')
+import React from 'react'
+import Card from '../../../Card'
 
 var PlayerBoard = React.createClass({
   render: function () {

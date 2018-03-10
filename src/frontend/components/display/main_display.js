@@ -1,5 +1,5 @@
-var React = require('react')
-var MainBoard = require('./components/board/main_board')
+import React from 'react'
+import MainBoard from '../MainBoard'
 var GameUtil = require('../../utils/game_util')
 var GameStore = require('../../stores/game_store')
 var InfoStore = require('../../stores/info_store')

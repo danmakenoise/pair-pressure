@@ -1,5 +1,7 @@
 import MainDisplay from './MainDisplay'
 import PlayerDisplay from './PlayerDisplay'
+import SoloDisplay from './SoloDisplay'
+
 const { hot } = require('react-hot-loader')
 var React = require('react')
 var ReactRouter = require('react-router')
@@ -10,7 +12,6 @@ var hashHistory = ReactRouter.hashHistory
 var IndexRoute = ReactRouter.IndexRoute
 
 var Menu = require('./menu')
-var SoloDisplay = require('./display/solo_display')
 var Instructions = require('./instructions')
 
 var PairPressure = React.createClass({

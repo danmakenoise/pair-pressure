@@ -1,28 +1,35 @@
 import React from 'react'
-import PlayerBoard from '../PlayerBoard'
-import Timer from '../Timer'
-var GameActions = require('../../actions/game_actions')
-var GameUtil = require('../../utils/game_util')
-var GameStore = require('../../stores/game_store')
+import PlayerBoard from './PlayerBoard'
+import Timer from './Timer'
+var GameActions = require('../actions/game_actions')
+var GameUtil = require('../utils/game_util')
+var GameStore = require('../stores/game_store')
 var Link = require('react-router').Link
 
-var SoloDisplay = React.createClass({
-  getInitialState: function () {
-    return {voted: true, game: null, turnPhase: 'joining', timeRemaining: null}
-  },
+class SoloDisplay extends React.Component {
+  constructor (props) {
+    super(props)
 
-  componentDidMount: function () {
+    this.state = {
+      voted: true,
+      game: null,
+      turnPhase: 'joining',
+      timeRemaining: null
+    }
+  }
+
+  componentDidMount () {
     this.listener = GameStore.addListener(this._handleGameChange)
     GameUtil.startNewGame()
-  },
+  }
 
-  componentWillUnmount: function () {
+  componentWillUnmount () {
     window.clearTimeout(this.votingTimeout)
     window.clearTimeout(this.guessTimeout)
     this.listener.remove()
-  },
+  }
 
-  render: function () {
+  render () {
     if (this.state.game) {
       return (
         <main className='main display'>
@@ -48,9 +55,9 @@ var SoloDisplay = React.createClass({
         </main>
       )
     }
-  },
+  }
 
-  _handleGameChange: function () {
+  _handleGameChange () {
     if (this.state.turnPhase === 'joining') {
       this._startVoting()
     } else if (this.state.turnPhase === 'revealing') {
@@ -60,24 +67,24 @@ var SoloDisplay = React.createClass({
     } else {
       this.setState({game: GameStore.game})
     }
-  },
+  }
 
-  _handleGuess: function () {
+  _handleGuess () {
     if (GameStore.game.isOver()) {
       this.setState({game: null, message: 'You Won!'})
     } else {
       GameStore.game.handleGuess()
       this._startVoting()
     }
-  },
+  }
 
-  _castVote: function (idx) {
+  _castVote (idx) {
     if (!this.state.voted && this.state.voted !== 0) {
       this.setState({voted: idx})
     }
-  },
+  }
 
-  _updateVoteCycle: function () {
+  _updateVoteCycle () {
     if (!this.state.voted && this.state.voted !== 0 && this.state.timeRemaining > 0) {
       this.setState({timeRemaining: this.state.timeRemaining - 1})
       this.votingTimeout = window.setTimeout(this._updateVoteCycle, 1000)
@@ -90,14 +97,14 @@ var SoloDisplay = React.createClass({
         GameActions.flipCard(cardToFlip)
       }
     }
-  },
+  }
 
-  _gameOver: function () {
+  _gameOver () {
     this.setState({game: null, message: 'Game Over!'})
     this.listener.remove()
-  },
+  }
 
-  _startVoting: function () {
+  _startVoting () {
     this.setState({
       voted: false,
       game: GameStore.game,
@@ -107,6 +114,6 @@ var SoloDisplay = React.createClass({
     })
     this.votingTimeout = window.setTimeout(this._updateVoteCycle, 1000)
   }
-})
+}
 
-module.exports = SoloDisplay
+export default SoloDisplay

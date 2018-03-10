@@ -1,4 +1,6 @@
+import Instructions from './Instructions'
 import MainDisplay from './MainDisplay'
+import Menu from './Menu'
 import PlayerDisplay from './PlayerDisplay'
 import SoloDisplay from './SoloDisplay'
 
@@ -11,15 +13,18 @@ var Router = ReactRouter.Router
 var hashHistory = ReactRouter.hashHistory
 var IndexRoute = ReactRouter.IndexRoute
 
-var Menu = require('./menu')
-var Instructions = require('./instructions')
+const contextTypes = {
+  router: React.PropTypes.object.isRequired
+}
 
-var PairPressure = React.createClass({
-  contextTypes: {
-    router: React.PropTypes.object.isRequired
-  },
+class PairPressure extends React.Component {
+  constructor (props) {
+    super(props)
 
-  render: function () {
+    this._goHome = this._goHome.bind(this)
+  }
+
+  render () {
     return (
       <section className='section pair-pressure'>
         <header className='header'>
@@ -30,12 +35,14 @@ var PairPressure = React.createClass({
         { this.props.children }
       </section>
     )
-  },
+  }
 
-  _goHome: function () {
+  _goHome () {
     this.context.router.push('/')
   }
-})
+}
+
+PairPressure.contextTypes = contextTypes
 
 var routes = (
   <Route>
@@ -51,4 +58,4 @@ var routes = (
 
 var App = () => <Router history={hashHistory}>{routes}</Router>
 
-module.exports = hot(module)(App)
+export default hot(module)(App)

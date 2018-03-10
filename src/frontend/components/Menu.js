@@ -1,16 +1,24 @@
 var React = require('react')
 var Link = require('react-router').Link
 
-var Menu = React.createClass({
-  contextTypes: {
-    router: React.PropTypes.object.isRequired
-  },
+const contextTypes = {
+  router: React.PropTypes.object.isRequired
+}
 
-  getInitialState: function () {
-    return { roomCode: '' }
-  },
+class Menu extends React.Component {
+  constructor (props) {
+    super(props)
 
-  render: function () {
+    this.state = {
+      roomCode: ''
+    }
+
+    this._renderJoinButton = this._renderJoinButton.bind(this)
+    this._handleChange = this._handleChange.bind(this)
+    this._joinGame = this._joinGame.bind(this)
+  }
+
+  render() {
     return (
       <main className='main menu'>
         <input
@@ -31,9 +39,9 @@ var Menu = React.createClass({
         </p>
       </main>
     )
-  },
+  }
 
-  _renderJoinButton: function () {
+  _renderJoinButton() {
     if (this.state.roomCode.length === 4) {
       return (
         <button className='button' onClick={this._joinGame}>
@@ -41,20 +49,21 @@ var Menu = React.createClass({
         </button>
       )
     }
-  },
+  }
 
-  _handleChange: function () {
+  _handleChange() {
     if (this.refs.roomCode.value.length <= 4) {
       this.setState({roomCode: this.refs.roomCode.value})
     }
-  },
+  }
 
-  _joinGame: function () {
+  _joinGame() {
     if (this.refs.roomCode.value.length === 4) {
       var url = '/game/' + this.refs.roomCode.value.toLowerCase()
       this.context.router.push(url)
     }
-  }
-})
+  } 
+}
 
-module.exports = Menu
+Menu.contextTypes = contextTypes
+export default Menu

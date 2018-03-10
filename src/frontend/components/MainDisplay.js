@@ -18,6 +18,14 @@ class MainDisplay extends React.Component {
       turnPhase: 'joining',
       timeRemaining: null
     }
+
+    this._fetchGameInfo = this._fetchGameInfo.bind(this)
+    this._handleInfoChange = this._handleInfoChange.bind(this)
+    this._handleGameChange = this._handleGameChange.bind(this)
+    this._handleGuess = this._handleGuess.bind(this)
+    this._updateVoteCycle = this._updateVoteCycle.bind(this)
+    this._gameOver = this._gameOver.bind(this)
+    this._startVoting = this._startVoting.bind(this)
   }
 
   componentDidMount () {

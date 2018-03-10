@@ -20,6 +20,12 @@ class PlayerDisplay extends React.Component {
       game: null,
       voted: -1
     }
+
+    this._handleGameChange = this._handleGameChange.bind(this)
+    this._fetchSession = this._fetchSession.bind(this)
+    this._handleSessionChange = this._handleSessionChange.bind(this)
+    this._handleVoteChange = this._handleVoteChange.bind(this)
+    this._castVote = this._castVote.bind(this)
   }
 
   componentDidMount () {

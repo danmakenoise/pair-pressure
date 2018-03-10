@@ -18,7 +18,7 @@ class Menu extends React.Component {
     this._joinGame = this._joinGame.bind(this)
   }
 
-  render() {
+  render () {
     return (
       <main className='main menu'>
         <input
@@ -41,7 +41,7 @@ class Menu extends React.Component {
     )
   }
 
-  _renderJoinButton() {
+  _renderJoinButton () {
     if (this.state.roomCode.length === 4) {
       return (
         <button className='button' onClick={this._joinGame}>
@@ -51,18 +51,18 @@ class Menu extends React.Component {
     }
   }
 
-  _handleChange() {
+  _handleChange () {
     if (this.refs.roomCode.value.length <= 4) {
       this.setState({roomCode: this.refs.roomCode.value})
     }
   }
 
-  _joinGame() {
+  _joinGame () {
     if (this.refs.roomCode.value.length === 4) {
       var url = '/game/' + this.refs.roomCode.value.toLowerCase()
       this.context.router.push(url)
     }
-  } 
+  }
 }
 
 Menu.contextTypes = contextTypes

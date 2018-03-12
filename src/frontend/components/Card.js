@@ -1,14 +1,26 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 
-const Card = props => {
-  if (props.card.flipped) {
-    return (
+import CardModel from '../game/card'
+
+const propTypes = {
+  card: PropTypes.shape({
+    color: PropTypes.oneOf(CardModel._allColors),
+    chosen: PropTypes.bool,
+    flipped: PropTypes.bool,
+    symbol: PropTypes.oneOf(CardModel._allSymbols)
+  }),
+  voted: PropTypes.bool,
+  votes: PropTypes.number
+}
+
+const Card = props => (
+  props.card.flipped
+    ? (
       <section className={_determineRevealedCardClassName(props)}>
         <p className='text card__text'>{props.card.symbol}</p>
       </section>
-    )
-  } else {
-    return (
+    ) : (
       <section
         className={_determineHiddenCardClassName(props)}
         onClick={props.onClick}
@@ -16,8 +28,7 @@ const Card = props => {
         <p className='text card__text'>&nbsp;</p>
       </section>
     )
-  }
-}
+)
 
 const _determineRevealedCardClassName = props => {
   var chosen = props.chosen ? ' card--chosen' : ''
@@ -40,4 +51,5 @@ const _determineHiddenCardClassName = props => {
   return 'section card card--down' + selected + votedFor
 }
 
+Card.propTypes = propTypes
 export default Card

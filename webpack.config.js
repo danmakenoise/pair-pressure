@@ -19,7 +19,10 @@ const config = {
         use: {
           loader: 'babel-loader',
           options: {
-            plugins: ['react-hot-loader/babel'],
+            plugins: [
+              'react-hot-loader/babel',
+              'transform-class-properties'
+            ],
             presets: ['env', 'react']
           }
         }

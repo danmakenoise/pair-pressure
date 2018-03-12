@@ -1,11 +1,13 @@
 import { Link } from 'react-router-dom'
 import React from 'react'
+
 import MainBoard from './MainBoard'
 import Timer from './Timer'
-var GameUtil = require('../utils/game_util')
-var GameStore = require('../stores/game_store')
-var InfoStore = require('../stores/info_store')
-var VoteUtil = require('../utils/vote_util')
+
+import GameStore from '../stores/game_store'
+import GameUtil from '../utils/game_util'
+import InfoStore from '../stores/info_store'
+import VoteUtil from '../utils/vote_util'
 
 class MainDisplay extends React.Component {
   constructor (props) {
@@ -18,14 +20,6 @@ class MainDisplay extends React.Component {
       turnPhase: 'joining',
       timeRemaining: null
     }
-
-    this._fetchGameInfo = this._fetchGameInfo.bind(this)
-    this._handleInfoChange = this._handleInfoChange.bind(this)
-    this._handleGameChange = this._handleGameChange.bind(this)
-    this._handleGuess = this._handleGuess.bind(this)
-    this._updateVoteCycle = this._updateVoteCycle.bind(this)
-    this._gameOver = this._gameOver.bind(this)
-    this._startVoting = this._startVoting.bind(this)
   }
 
   componentDidMount () {
@@ -40,6 +34,78 @@ class MainDisplay extends React.Component {
     this.infoListener.remove()
     window.clearTimeout(this.votingTimeout)
     window.clearTimeout(this.infoTimeout)
+  }
+
+  _fetchGameInfo = () => {
+    if (this.state.game) {
+      GameUtil.fetchGameInfo()
+      this.infoTimeout = window.setTimeout(this._fetchGameInfo, 1000)
+    }
+  }
+
+  _handleInfoChange = () => {
+    this.setState({players: InfoStore.players, votes: InfoStore.votes})
+  }
+
+  _handleGameChange = () => {
+    if (this.state.turnPhase === 'joining') {
+      this._startVoting()
+    } else if (this.state.turnPhase === 'revealing') {
+      var message = GameStore.game.wasMatch() ? "It's a match!" : 'Not a match!'
+      this.setState({game: GameStore.game, message: message, timeRemaining: '__'})
+      window.setTimeout(this._handleGuess, 2000)
+    } else {
+      this.setState({game: GameStore.game})
+    }
+  }
+
+  _handleGuess = () => {
+    if (GameStore.game.isOver()) {
+      GameUtil.saveGame()
+      this.setState({game: null, message: 'You Won!'})
+    } else {
+      GameStore.game.handleGuess()
+      GameUtil.saveGame()
+      this._startVoting()
+    }
+  }
+
+  _updateVoteCycle = () => {
+    if (this.state.timeRemaining > 0) {
+      this.setState({timeRemaining: this.state.timeRemaining - 1})
+      this.votingTimeout = window.setTimeout(this._updateVoteCycle, 1000)
+    } else {
+      this.setState({turnPhase: 'revealing', timeRemaining: null})
+      VoteUtil.processVotes(this._gameOver)
+    }
+  }
+
+  _gameOver = () => {
+    this.setState({game: null, message: 'Game Over!'})
+    this.gameListener.remove()
+    this.voteListener.remove()
+    this.sessionListener.remove()
+    window.clearTimeout(this.sessionTimeout)
+    window.clearTimeout(this.infoTimeout)
+  }
+
+  _startVoting = () => {
+    if (this.state.turnPhase === 'joining') {
+      this.setState({
+        game: GameStore.game,
+        turnPhase: 'voting',
+        timeRemaining: 20,
+        message: 'Join the game on your phone to vote!'
+      })
+    } else {
+      this.setState({
+        game: GameStore.game,
+        turnPhase: 'voting',
+        timeRemaining: 10,
+        message: 'Vote for the matching card!'
+      })
+    }
+    window.setTimeout(this._updateVoteCycle, 1000)
   }
 
   render () {
@@ -71,78 +137,6 @@ class MainDisplay extends React.Component {
         </main>
       )
     }
-  }
-
-  _fetchGameInfo () {
-    if (this.state.game) {
-      GameUtil.fetchGameInfo()
-      this.infoTimeout = window.setTimeout(this._fetchGameInfo, 1000)
-    }
-  }
-
-  _handleInfoChange () {
-    this.setState({players: InfoStore.players, votes: InfoStore.votes})
-  }
-
-  _handleGameChange () {
-    if (this.state.turnPhase === 'joining') {
-      this._startVoting()
-    } else if (this.state.turnPhase === 'revealing') {
-      var message = GameStore.game.wasMatch() ? "It's a match!" : 'Not a match!'
-      this.setState({game: GameStore.game, message: message, timeRemaining: '__'})
-      window.setTimeout(this._handleGuess, 2000)
-    } else {
-      this.setState({game: GameStore.game})
-    }
-  }
-
-  _handleGuess () {
-    if (GameStore.game.isOver()) {
-      GameUtil.saveGame()
-      this.setState({game: null, message: 'You Won!'})
-    } else {
-      GameStore.game.handleGuess()
-      GameUtil.saveGame()
-      this._startVoting()
-    }
-  }
-
-  _updateVoteCycle () {
-    if (this.state.timeRemaining > 0) {
-      this.setState({timeRemaining: this.state.timeRemaining - 1})
-      this.votingTimeout = window.setTimeout(this._updateVoteCycle, 1000)
-    } else {
-      this.setState({turnPhase: 'revealing', timeRemaining: null})
-      VoteUtil.processVotes(this._gameOver)
-    }
-  }
-
-  _gameOver () {
-    this.setState({game: null, message: 'Game Over!'})
-    this.gameListener.remove()
-    this.voteListener.remove()
-    this.sessionListener.remove()
-    window.clearTimeout(this.sessionTimeout)
-    window.clearTimeout(this.infoTimeout)
-  }
-
-  _startVoting () {
-    if (this.state.turnPhase === 'joining') {
-      this.setState({
-        game: GameStore.game,
-        turnPhase: 'voting',
-        timeRemaining: 20,
-        message: 'Join the game on your phone to vote!'
-      })
-    } else {
-      this.setState({
-        game: GameStore.game,
-        turnPhase: 'voting',
-        timeRemaining: 10,
-        message: 'Vote for the matching card!'
-      })
-    }
-    window.setTimeout(this._updateVoteCycle, 1000)
   }
 }
 

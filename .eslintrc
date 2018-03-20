@@ -1,11 +1,15 @@
 {
   "plugins": [
-    "flowtype"
+    "flowtype",
+    "jest"
   ],
   "extends": [
     "plugin:flowtype/recommended",
     "standard",
     "standard-jsx"
   ],
-  "parser": "babel-eslint"
+  "parser": "babel-eslint",
+  "env": {
+    "jest/globals": true
+  }
 }

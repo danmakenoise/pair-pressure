@@ -23,7 +23,7 @@ const config = {
               'react-hot-loader/babel',
               'transform-class-properties'
             ],
-            presets: ['env', 'react']
+            presets: ['env', 'react', 'flow']
           }
         }
       }

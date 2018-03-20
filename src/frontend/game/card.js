@@ -1,3 +1,5 @@
+import { COLORS, SYMBOLS } from '../../game/cards/config'
+
 var Card = function (symbol, color, flipped) {
   this.symbol = symbol
   this.color = color
@@ -6,13 +8,11 @@ var Card = function (symbol, color, flipped) {
 
 Card.allCombinations = function () {
   var allCards = []
-  var allSymbols = Card._allSymbols
-  var allColors = Card._allColors
   var newCard
 
-  allSymbols.forEach(function (symbol) {
-    var colorIdx = Math.floor(Math.random() * allColors.length)
-    var color = allColors[colorIdx]
+  SYMBOLS.forEach(function (symbol) {
+    var colorIdx = Math.floor(Math.random() * COLORS.length)
+    var color = COLORS[colorIdx]
 
     for (var i = 0; i < 2; i++) {
       newCard = new Card(symbol, color, false)
@@ -56,20 +56,6 @@ Card.prototype.flip = function () {
   this.flipped = !this.flipped
 }
 
-Card._allSymbols = [
-  'A',
-  'B',
-  'C',
-  '$',
-  '#',
-  '@'
-]
-
-Card._allColors = [
-  'red',
-  'blue',
-  'yellow'
-]
 
 Card._shuffle = function (array) {
   var numShifts = 1000

@@ -1,5 +1,6 @@
 import { COLORS as colors, SYMBOLS as symbols } from '../../game/cards/config'
 import generateCombinations from '../../game/cards/generateCombinations'
+
 var Card = function (symbol, color, flipped) {
   this.symbol = symbol
   this.color = color
@@ -11,27 +12,6 @@ Card.allCombinations = function () {
     .map(card => new Card(card.symbol, card.color, card.isRevealed))
 
   return Card._shuffle(allCards)
-}
-
-Card.combinationsFromString = function (string) {
-  var cards = string.split('\n')
-  var output = []
-  var newCard
-  var symbol
-  var color
-  var flipped
-
-  cards.forEach(function (card) {
-    card = card.split(',')
-    symbol = card[0]
-    color = card[1]
-    flipped = card[2] !== 'false'
-
-    newCard = new Card(symbol, color, flipped)
-    output.push(newCard)
-  })
-
-  return output
 }
 
 Card.prototype.isMatch = function (otherCard) {

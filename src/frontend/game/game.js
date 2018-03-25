@@ -5,7 +5,7 @@ var Game = function (cardsString, currentCard) {
   var cards
 
   if (cardsString) {
-    cards = Card.combinationsFromString(cardsString)
+    cards = JSON.parse(cardsString)
     this.board = new Board(cards)
     this.computerCardPos = parseInt(currentCard)
     this.computerCard = this.board.cardAt(this.computerCardPos)

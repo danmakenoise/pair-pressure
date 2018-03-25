@@ -73,7 +73,6 @@ class PlayerDisplay extends React.Component {
   }
 
   _handleGameChange () {
-    console.log('handleGameChange')
     if (GameStore.game.isOver()) {
       this.setState({game: null})
       window.clearInterval(this.sessionTimeout)

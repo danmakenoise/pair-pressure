@@ -61,21 +61,14 @@ var GameUtil = {
       method: 'POST'
     })
       .then(res => res.text())
-      .then(token => console.log(token) || GameActions.receiveToken(token))
+      .then(token => GameActions.receiveToken(token))
   },
 
   _stringifyCards: function (cards) {
-    var output = []
-
-    cards.forEach(function (card) {
-      var currentCard = []
-      currentCard.push(card.symbol)
-      currentCard.push(card.color)
-      currentCard.push(card.flipped)
-      output.push(currentCard.join(','))
-    })
-
-    return output.join('\n')
+    return JSON.stringify(cards.map(function (card) {
+      const { symbol, color, flipped } = card
+      return { symbol, color, flipped }
+    }))
   }
 }
 

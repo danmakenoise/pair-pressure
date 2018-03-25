@@ -1,6 +1,7 @@
 import shuffle from 'lodash.shuffle'
 import { COLORS as colors, SYMBOLS as symbols } from '../../game/cards/config'
 
+import isMatch from '../../game/isMatch'
 import getUnrevealedCards from '../../game/cards/getUnrevealedCards'
 import chooseCard from '../../game/chooseCard'
 import generateCombinations from '../../game/cards/generateCombinations'
@@ -31,13 +32,9 @@ Game.prototype.handleGuess = function () {
 }
 
 Game.prototype.isMatch = function () {
-  const playerCard = this.cards[this.playerCardPos]
-  const computerCard = this.cards[this.computerCardPos]
-
-  const symbolsMatch = playerCard.symbol === computerCard.symbol
-  const colorsMatch = playerCard.color === computerCard.color
-
-  return symbolsMatch && colorsMatch
+  const card = this.cards[this.playerCardPos]
+  const otherCard = this.cards[this.computerCardPos]
+  return isMatch({ card, otherCard })
 }
 
 Game.prototype.startRound = function () {

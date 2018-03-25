@@ -20,20 +20,20 @@ var Game = function (cardsString, currentCard) {
 Game.prototype.chooseCard = function (index) {
   this.cards = chooseCard({ index, cards: this.cards })
   this.playerCardPos = index
-  this.playerCard = this.cards[index]
 }
 
 Game.prototype.handleGuess = function () {
   if (!this.isMatch()) {
     this.computerCard.isRevealed = false
-    this.playerCard.isRevealed = false
+    this.cards[this.playerCardPos].isRevealed = false
   }
   this.startRound()
 }
 
 Game.prototype.isMatch = function () {
-  const symbolsMatch = this.playerCard.symbol === this.computerCard.symbol
-  const colorsMatch = this.playerCard.color === this.computerCard.color
+  const playerCard = this.cards[this.playerCardPos]
+  const symbolsMatch = playerCard.symbol === this.computerCard.symbol
+  const colorsMatch = playerCard.color === this.computerCard.color
 
   return symbolsMatch && colorsMatch
 }
@@ -41,7 +41,6 @@ Game.prototype.isMatch = function () {
 Game.prototype.startRound = function () {
   this.computerCardPos = null
   this.computerCard = null
-  this.playerCard = null
   this.playerCardPos = null
 
   this._flipRandomCard()

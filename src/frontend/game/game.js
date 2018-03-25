@@ -1,6 +1,7 @@
 import shuffle from 'lodash.shuffle'
 import { COLORS as colors, SYMBOLS as symbols } from '../../game/cards/config'
 
+import getUnrevealedCards from '../../game/cards/getUnrevealedCards'
 import chooseCard from '../../game/chooseCard'
 import generateCombinations from '../../game/cards/generateCombinations'
 
@@ -47,20 +48,9 @@ Game.prototype.startRound = function () {
 }
 
 Game.prototype._flipRandomCard = function () {
-  var flipped = false
-  var chosenCard
-  var idx
-
-  while (!flipped) {
-    idx = Math.floor(Math.random() * this.cards.length)
-    chosenCard = this.cards[idx]
-
-    if (!chosenCard.isRevealed) {
-      chosenCard.isRevealed = true
-      flipped = true
-      this.computerCardPos = idx
-    }
-  }
+  const [ index ] = shuffle(getUnrevealedCards(this.cards))
+  this.cards = chooseCard({ index, cards: this.cards })
+  this.computerCardPos = index
 }
 
 module.exports = Game

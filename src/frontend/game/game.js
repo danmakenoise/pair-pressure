@@ -1,5 +1,7 @@
 import shuffle from 'lodash.shuffle'
 import { COLORS as colors, SYMBOLS as symbols } from '../../game/cards/config'
+
+import chooseCard from '../../game/chooseCard'
 import generateCombinations from '../../game/cards/generateCombinations'
 
 var Game = function (cardsString, currentCard) {
@@ -15,15 +17,10 @@ var Game = function (cardsString, currentCard) {
   }
 }
 
-Game.prototype.chooseCard = function (idx) {
-  var chosenCard = this.cards[idx]
-  if (chosenCard.isRevealed) {
-    throw new Error('InvalidCard')
-  } else {
-    this.playerCardPos = idx
-    this.playerCard = chosenCard
-    chosenCard.isRevealed = true
-  }
+Game.prototype.chooseCard = function (index) {
+  this.cards = chooseCard({ index, cards: this.cards })
+  this.playerCardPos = index
+  this.playerCard = this.cards[index]
 }
 
 Game.prototype.handleGuess = function () {

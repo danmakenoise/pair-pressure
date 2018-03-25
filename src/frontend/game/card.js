@@ -1,3 +1,5 @@
+import shuffle from 'lodash.shuffle'
+
 import { COLORS as colors, SYMBOLS as symbols } from '../../game/cards/config'
 import generateCombinations from '../../game/cards/generateCombinations'
 
@@ -11,7 +13,7 @@ Card.allCombinations = function () {
   const allCards = generateCombinations({ colors, symbols })
     .map(card => new Card(card.symbol, card.color, card.isRevealed))
 
-  return Card._shuffle(allCards)
+  return shuffle(allCards)
 }
 
 Card.prototype.isMatch = function (otherCard) {
@@ -24,24 +26,6 @@ Card.prototype.isMatch = function (otherCard) {
 
 Card.prototype.flip = function () {
   this.flipped = !this.flipped
-}
-
-Card._shuffle = function (array) {
-  var numShifts = 1000
-  var indexOne
-  var indexTwo
-  var temp
-
-  for (var i = 0; i < numShifts; i++) {
-    indexOne = Math.floor(Math.random() * array.length)
-    indexTwo = Math.floor(Math.random() * array.length)
-
-    temp = array[indexOne]
-    array[indexOne] = array[indexTwo]
-    array[indexTwo] = temp
-  }
-
-  return array
 }
 
 module.exports = Card

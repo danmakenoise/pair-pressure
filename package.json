@@ -27,6 +27,7 @@
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
     "flux": "^2.1.1",
+    "lodash.shuffle": "^4.2.0",
     "prop-types": "^15.6.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",

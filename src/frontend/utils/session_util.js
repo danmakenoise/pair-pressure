@@ -6,7 +6,7 @@ var SessionUtil = {
   fetchSession: function () {
     const session = SessionStore.session ? SessionStore.session.sessionToken : null
 
-    const baseUrl = 'api/session?'
+    const baseUrl = '/api/session?'
     const gameToken = `gameToken=${GameStore.token}`
     const sessionToken = session ? `&sessionToken=${session}` : ''
 

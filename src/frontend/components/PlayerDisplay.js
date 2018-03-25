@@ -13,7 +13,7 @@ class PlayerDisplay extends React.Component {
   constructor (props) {
     super(props)
 
-    GameActions.receiveToken(props.params.id)
+    GameActions.receiveToken(props.match.params.id)
 
     this.state = {
       session: null,
@@ -34,7 +34,7 @@ class PlayerDisplay extends React.Component {
     this.sessionListener = SessionStore.addListener(this._handleSessionChange)
 
     SessionUtil.fetchSession()
-    GameUtil.loadGame(this.props.params.id)
+    GameUtil.loadGame(this.props.match.params.id)
   }
 
   componentWillUnmount () {
@@ -45,7 +45,7 @@ class PlayerDisplay extends React.Component {
   }
 
   componentWillReceiveProps (newProps) {
-    GameUtil.loadGame(newProps.params.id)
+    GameUtil.loadGame(newProps.match.params.id)
   }
 
   render () {
@@ -94,7 +94,7 @@ class PlayerDisplay extends React.Component {
     if (SessionStore.session.vote === null) {
       this.setState({voted: -1})
       VoteStore.voted = null
-      GameUtil.loadGame(this.props.params.id)
+      GameUtil.loadGame(this.props.match.params.id)
     } else {
       this.setState({ voted: parseInt(SessionStore.session.vote) })
     }

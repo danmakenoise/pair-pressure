@@ -4,7 +4,7 @@ var GameActions = require('../actions/game_actions')
 
 var GameUtil = {
   loadGame: function (id) {
-    window.fetch(`api/games/${id}`)
+    window.fetch(`/api/games/${id}`)
       .then(res => res.json())
       .then(data => {
         var loadedGame = new Game(data.cards, data.currentCard, data.token)
@@ -13,7 +13,7 @@ var GameUtil = {
   },
 
   fetchGameInfo: function () {
-    window.fetch(`api/games/${GameStore.token}`)
+    window.fetch(`/api/games/${GameStore.token}`)
       .then(res => res.json())
       .then(data => {
         GameActions.receiveGameInfo(data)
@@ -21,7 +21,7 @@ var GameUtil = {
   },
 
   saveGame: function () {
-    window.fetch('api/save', {
+    window.fetch('/api/save', {
       body: JSON.stringify({
         game: {
           cards: this._stringifyCards(GameStore.game.board.cards),
@@ -49,7 +49,7 @@ var GameUtil = {
   },
 
   _createGame: function (newGame) {
-    window.fetch('api/save', {
+    window.fetch('/api/save', {
       body: JSON.stringify({
         game: {
           cards: this._stringifyCards(newGame.board.cards),

@@ -38,7 +38,7 @@ const PairPressure = withRouter(_PairPressure)
 var routes = (
   <PairPressure>
     <Route exact path='/' component={Menu} />
-    <Route path='/game' component={MainDisplay} />
+    <Route exact path='/game' component={MainDisplay} />
     <Route path='/solo' component={SoloDisplay} />
     <Route path='/game/:id' component={PlayerDisplay} />
     <Route path='/help' component={Instructions} />

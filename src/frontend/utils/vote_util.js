@@ -5,7 +5,7 @@ var VoteActions = require('../actions/vote_actions')
 
 var VoteUtil = {
   castVote: function (idx) {
-    window.fetch('api/vote', {
+    window.fetch('/api/vote', {
       body: JSON.stringify({
         vote: {
           token: GameStore.token,
@@ -20,7 +20,7 @@ var VoteUtil = {
   },
 
   processVotes: function (gameOverCallback) {
-    window.fetch('api/votes/' + GameStore.token)
+    window.fetch('/api/votes/' + GameStore.token)
       .then(res => res.json())
       .then(data => {
         const idx = data.winner

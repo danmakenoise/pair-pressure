@@ -77,7 +77,7 @@ class SoloDisplay extends React.Component {
   }
 
   _handleGuess () {
-    if (GameStore.game.isOver()) {
+    if (GameStore.isOver()) {
       this.setState({game: null, message: 'You Won!'})
     } else {
       GameStore.game.handleGuess()

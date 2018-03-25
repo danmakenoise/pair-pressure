@@ -15,18 +15,6 @@ var Game = function (cardsString, currentCard) {
   }
 }
 
-Game.prototype.isOver = function () {
-  var over = true
-
-  this.cards.forEach(function (card) {
-    if (!card.isRevealed) {
-      over = false
-    }
-  })
-
-  return over
-}
-
 Game.prototype.chooseCard = function (idx) {
   var chosenCard = this.cards[idx]
   if (chosenCard.isRevealed) {

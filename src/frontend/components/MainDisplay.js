@@ -60,7 +60,7 @@ class MainDisplay extends React.Component {
   }
 
   _handleGuess = () => {
-    if (GameStore.game.isOver()) {
+    if (GameStore.isOver()) {
       GameUtil.saveGame()
       this.setState({game: null, message: 'You Won!'})
     } else {

@@ -1,3 +1,5 @@
+import isOver from '../../game/isOver'
+
 var GameDispatcher = require('../dispatchers/game_dispatcher')
 var GameConstants = require('../constants/game_constants')
 
@@ -25,5 +27,7 @@ GameStore.__onDispatch = function (payload) {
     // no-op
   }
 }
+
+GameStore.isOver = () => isOver(GameStore.game.cards)
 
 module.exports = GameStore

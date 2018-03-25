@@ -41,7 +41,7 @@ class SoloDisplay extends React.Component {
       return (
         <main className='main display'>
           <PlayerBoard
-            board={this.state.game.board}
+            board={this.state.game.cards}
             voted={this.state.voted}
             onClick={this._castVote}
             compChoice={this.state.game.computerCardPos}
@@ -68,7 +68,7 @@ class SoloDisplay extends React.Component {
     if (this.state.turnPhase === 'joining') {
       this._startVoting()
     } else if (this.state.turnPhase === 'revealing') {
-      var message = GameStore.game.wasMatch() ? "It's a match!" : 'Not a match!'
+      var message = GameStore.game.isMatch() ? "It's a match!" : 'Not a match!'
       this.setState({game: GameStore.game, message: message, timeRemaining: '__'})
       this.guessTimeout = window.setTimeout(this._handleGuess, 2000)
     } else {

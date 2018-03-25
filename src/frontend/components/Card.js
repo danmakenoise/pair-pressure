@@ -1,21 +1,20 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import CardModel from '../game/card'
+import { COLORS, SYMBOLS } from '../../game/cards/config'
 
 const propTypes = {
   card: PropTypes.shape({
-    color: PropTypes.oneOf(CardModel._allColors),
-    chosen: PropTypes.bool,
-    flipped: PropTypes.bool,
-    symbol: PropTypes.oneOf(CardModel._allSymbols)
+    color: PropTypes.oneOf(COLORS),
+    isRevealed: PropTypes.bool,
+    symbol: PropTypes.oneOf(SYMBOLS)
   }),
   voted: PropTypes.bool,
   votes: PropTypes.number
 }
 
 const Card = props => (
-  props.card.flipped
+  props.card.isRevealed
     ? (
       <section className={_determineRevealedCardClassName(props)}>
         <p className='text card__text'>{props.card.symbol}</p>

@@ -51,7 +51,7 @@ class MainDisplay extends React.Component {
     if (this.state.turnPhase === 'joining') {
       this._startVoting()
     } else if (this.state.turnPhase === 'revealing') {
-      var message = GameStore.game.wasMatch() ? "It's a match!" : 'Not a match!'
+      var message = GameStore.game.isMatch() ? "It's a match!" : 'Not a match!'
       this.setState({game: GameStore.game, message: message, timeRemaining: '__'})
       window.setTimeout(this._handleGuess, 2000)
     } else {
@@ -113,7 +113,7 @@ class MainDisplay extends React.Component {
       return (
         <main className='main display'>
           <MainBoard
-            board={this.state.game.board}
+            board={this.state.game.cards}
             players={this.state.players}
             votes={this.state.votes}
             compChoice={this.state.game.computerCardPos}

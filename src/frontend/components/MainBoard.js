@@ -1,26 +1,23 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import CardModel from '../game/card'
+import { COLORS, SYMBOLS } from '../../game/cards/config'
 import Card from './Card'
 
 const propTypes = {
-  board: PropTypes.shape({
-    cards: PropTypes.arrayOf(PropTypes.shape({
-      color: PropTypes.oneOf(CardModel._allColors),
-      chosen: PropTypes.bool,
-      flipped: PropTypes.bool,
-      symbol: PropTypes.oneOf(CardModel._allSymbols)
-    }))
-  }),
+  board: PropTypes.arrayOf(PropTypes.shape({
+    color: PropTypes.oneOf(COLORS),
+    isRevealed: PropTypes.bool,
+    symbol: PropTypes.oneOf(SYMBOLS)
+  })),
   compChoice: PropTypes.number,
   players: PropTypes.number,
   votes: PropTypes.number
 }
 
-const MainBoard = props => (
+const MainBoard = props => console.log(props.board) || (
   <section className='section board group'>
-    {props.board.cards.map((card, index) => (
+    {props.board.map((card, index) => (
       <Card
         key={index}
         card={card}

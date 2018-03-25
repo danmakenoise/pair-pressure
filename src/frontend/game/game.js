@@ -1,25 +1,25 @@
-var Board = require('./board')
-var Card = require('./card')
+import shuffle from 'lodash.shuffle'
+import { COLORS as colors, SYMBOLS as symbols } from '../../game/cards/config'
+import generateCombinations from '../../game/cards/generateCombinations'
 
 var Game = function (cardsString, currentCard) {
   var cards
 
   if (cardsString) {
     cards = JSON.parse(cardsString)
-    this.board = new Board(cards)
+    this.cards = cards
     this.computerCardPos = parseInt(currentCard)
-    this.computerCard = this.board.cardAt(this.computerCardPos)
+    this.computerCard = this.cards[this.computerCardPos]
   } else {
-    cards = Card.allCombinations()
-    this.board = new Board(cards)
+    this.cards = shuffle(generateCombinations({ colors, symbols }))
   }
 }
 
 Game.prototype.isOver = function () {
   var over = true
 
-  this.board.cards.forEach(function (card) {
-    if (!card.flipped) {
+  this.cards.forEach(function (card) {
+    if (!card.isRevealed) {
       over = false
     }
   })
@@ -28,26 +28,29 @@ Game.prototype.isOver = function () {
 }
 
 Game.prototype.chooseCard = function (idx) {
-  var chosenCard = this.board.cardAt(idx)
-  if (chosenCard.flipped) {
+  var chosenCard = this.cards[idx]
+  if (chosenCard.isRevealed) {
     throw new Error('InvalidCard')
   } else {
     this.playerCardPos = idx
     this.playerCard = chosenCard
-    chosenCard.flip()
+    chosenCard.isRevealed = true
   }
 }
 
 Game.prototype.handleGuess = function () {
-  if (!this.playerCard.isMatch(this.computerCard)) {
-    this.computerCard.flip()
-    this.playerCard.flip()
+  if (!this.isMatch()) {
+    this.computerCard.isRevealed = false
+    this.playerCard.isRevealed = false
   }
   this.startRound()
 }
 
-Game.prototype.wasMatch = function () {
-  return (this.playerCard.isMatch(this.computerCard))
+Game.prototype.isMatch = function () {
+  const symbolsMatch = this.playerCard.symbol === this.computerCard.symbol
+  const colorsMatch = this.playerCard.color === this.computerCard.color
+
+  return symbolsMatch && colorsMatch
 }
 
 Game.prototype.startRound = function () {
@@ -65,11 +68,11 @@ Game.prototype._flipRandomCard = function () {
   var idx
 
   while (!flipped) {
-    idx = Math.floor(Math.random() * this.board.size)
-    chosenCard = this.board.cardAt(idx)
+    idx = Math.floor(Math.random() * this.cards.length)
+    chosenCard = this.cards[idx]
 
-    if (!chosenCard.flipped) {
-      chosenCard.flip()
+    if (!chosenCard.isRevealed) {
+      chosenCard.isRevealed = true
       flipped = true
       this.computerCard = chosenCard
       this.computerCardPos = idx

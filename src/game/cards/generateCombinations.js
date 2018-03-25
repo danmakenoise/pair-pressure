@@ -20,7 +20,7 @@ const generateCombinations: FunctionType = ({ colors = [], symbols = [] } = {}) 
 
     const card = { color, symbol, isRevealed: false }
 
-    return cards.concat([card, card])
+    return cards.concat([card, Object.assign({}, card)])
   }, [])
 )
 

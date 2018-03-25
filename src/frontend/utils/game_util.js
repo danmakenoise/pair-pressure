@@ -24,7 +24,7 @@ var GameUtil = {
     window.fetch('/api/save', {
       body: JSON.stringify({
         game: {
-          cards: this._stringifyCards(GameStore.game.board.cards),
+          cards: JSON.stringify(GameStore.game.cards),
           current_card: GameStore.game.computerCardPos,
           token: GameStore.token
         }
@@ -52,7 +52,7 @@ var GameUtil = {
     window.fetch('/api/save', {
       body: JSON.stringify({
         game: {
-          cards: this._stringifyCards(newGame.board.cards),
+          cards: JSON.stringify(newGame.cards),
           current_card: newGame.computerCardPos
         }
       }),
@@ -62,13 +62,6 @@ var GameUtil = {
     })
       .then(res => res.text())
       .then(token => GameActions.receiveToken(token))
-  },
-
-  _stringifyCards: function (cards) {
-    return JSON.stringify(cards.map(function (card) {
-      const { symbol, color, flipped } = card
-      return { symbol, color, flipped }
-    }))
   }
 }
 

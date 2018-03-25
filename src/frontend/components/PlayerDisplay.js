@@ -53,7 +53,7 @@ class PlayerDisplay extends React.Component {
       return (
         <main className='main display'>
           <PlayerBoard
-            board={this.state.game.board}
+            board={this.state.game.cards}
             onClick={this._castVote}
             voted={this.state.voted}
             compChoice={this.state.game.computerCardPos}
